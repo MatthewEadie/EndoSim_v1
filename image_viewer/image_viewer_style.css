@@ -1,0 +1,171 @@
+style {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    list-style: none;
+    text-decoration: none;
+}
+
+body {
+    overflow: hidden; /* Hide scrollbars */
+    background-color: #5a5b5e;
+}
+
+.image_viewer_screen{
+    flex-direction: column;
+}
+
+.menubar{
+    background: #323338;
+    text-align: center;
+}
+
+.menubar ul{
+    display: inline-flex;
+    list-style: none;
+    color: #fff;
+}
+
+.menubar ul li{
+    width: 120px;
+    margin: 15px;
+    padding: 15px;
+}
+
+.menubar ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.active, .menubar ul li:hover{
+    background: #242425;
+    border-radius: 3px;
+}
+
+.about-sub-menu{
+    display: none;
+}
+
+.menubar ul li:hover .about-sub-menu{
+    display: block;
+    position: absolute;
+    background: #323338;
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+.menubar ul li:hover .about-sub-menu ul{
+    display: block;
+    margin: 10px;
+}
+
+.menubar ul li:hover .about-sub-menu ul li{
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+
+.toolbar{
+    /* position: fixed; */
+    float: left;
+    left: 0;
+    width: 100px;
+    height: 100%;
+    background: #323338;
+}
+
+.toolbar header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background: #323338;
+    user-select: none;
+}
+
+.toolbar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    border-bottom: 1px solid black;
+    transition: .4s;
+}
+
+/* .toolbar ul li:hover a{
+    padding-left: 50px;
+
+} */
+
+.toolbar ul a i{
+    margin-right: 16px;
+}
+
+.image_viewer_screen .Canvas{
+    float: left;
+}
+
+
+.image_settings{
+    margin-top: 0%;
+    width: 30%;
+    float: right;
+    z-index: 2;
+    /* right: 0; */
+}
+
+.contrast_sliders input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* Chromium */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
+}
+
+
+
+.image_settings .file li button{
+    width: 200px;
+    padding: 15px;
+    text-align: center;
+    margin: 0 0;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 2px solid #111;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+
+.slide_open:hover .tooltiptext {
+    visibility: visible;
+}
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EndoSim Image Viewer</title>
+    <link rel="stylesheet" href="image_viewer_style.css">
+    <link rel="stylesheet" href="image_magnifier_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="image_viewer_code.js"></script>
+    <script src="image_magnifier_code.js"></script>
+</head>
+<body>
+    <img id="img" src="./images/HR_Stitched.png" style="display: none;"/>
+
+    <div class="menubar">
+        <body>
+            <ul>
+                <li class="active"><a href="home.html">Home</a></li>
+                <li><a href="#">About Us</a>
+                    <div class="about-sub-menu">
+                        <ul>
+                            <li><a href="#">Mission</a></li>
+                            <li><a href="#">Vision</a></li>
+                            <li><a href="#">Team</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Clients</a></li>
+                <li><a href="#">Investors</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Training</a></li>
+                <li><a href="#">Content</a></li>
+            </ul>
+        </body>
+    </div>
+
+    <div class="image_viewer_screen">
+        <div class="toolbar">
+            <ul>
+                <li><a href="#"><i class="fa fa-mouse-pointer"></i></a></li>
+                <li><a href="#"><i class="fa fa-arrows"></i></a></li>
+                <li onclick="magnify()"><a href="#"><i class="fa fa-search"></i></a></li>
+                <li><a href="#"><i class="fa fa-pencil"></i></a></li>
+            </ul>
+        </div>
+
+
+        <div class="Canvas">
+            <canvas id="mainCanvas" width="1080" height="720" style="border:1px solid #000000;"></canvas>
+            <canvas id="zoomCanvas" width="250" height="250" style="position:absolute; left:100px; display:none"></canvas>
+        </div>
+    
+    
+        <div class="image_settings float-right">
+            <div class="file">
+                <ul>
+                    <!-- Image pannel for zoom -->
+    
+                    <li>Slide name: 
+                        <input type="text" name="img_name">
+                        <button class="slide_open">Open</button>
+                        <span class="tooltiptext">Tooltip text</span>
+                    </li>
+    
+                    <li>Fibre name: <input type="text" name="fibre_name"><button>Open</button></li>
+                </ul>
+            </div>
+    
+            <div class="enhancement_method">
+                <ul>
+                    <li>
+                        <input type="radio" name="enhance_method" id="Normal" checked onclick="load_HR_image()">None 
+                        <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
+                    </li>
+                    <li>
+                        <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
+                        <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
+                    </li>
+    
+                </ul>
+            </div>
+    
+            <div class="contrast_sliders">
+                <li>
+                    <input type="range" orient="vertical" />
+                    <input type="range" orient="vertical" />
+                    Green
+                    <input type="range" orient="vertical" />
+                    <input type="range" orient="vertical" />
+                    Blue
+                    <input type="range" orient="vertical" />
+                    <input type="range" orient="vertical" />
+                    Red
+                </li>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+</body>
+</html>

@@ -1,0 +1,126 @@
+style {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.toolbar{
+    position: fixed;
+    left: 0;
+    width: 100px;
+    height: 100%;
+    background: #323338;
+}
+
+.toolbar header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background: #323338;
+    user-select: none;
+}
+
+.toolbar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    border-bottom: 1px solid black;
+    transition: .4s;
+}
+
+/* .toolbar ul li:hover a{
+    padding-left: 50px;
+
+} */
+
+.toolbar ul a i{
+    margin-right: 16px;
+}
+
+button{
+    width: 200px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #009688;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.menubar{
+    background: #323338;
+    text-align: center;
+}
+
+.menubar ul{
+    display: inline-flex;
+    list-style: none;
+    color: #fff;
+}
+
+.menubar ul li{
+    width: 120px;
+    margin: 15px;
+    padding: 15px;
+}
+
+.menubar ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.active, .menubar ul li:hover{
+    background: #242425;
+    border-radius: 3px;
+}
+
+.about-sub-menu{
+    display: none;
+}
+
+.menubar ul li:hover .about-sub-menu{
+    display: block;
+    position: absolute;
+    background: #323338;
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+.menubar ul li:hover .about-sub-menu ul{
+    display: block;
+    margin: 10px;
+}
+
+.menubar ul li:hover .about-sub-menu ul li{
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+
+.screen .canvas{
+    padding-left: 100px;
+}
+
+.settings{
+    float: right;
+}

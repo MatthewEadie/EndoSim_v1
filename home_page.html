@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EndoSim Homepage</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home_style.css">
+</head>
+<body>
+    <h1>This is the home page</h1>
+    <div class="controls">
+        <header>Controls</header>
+        <li>
+            <button><a href="image_viewer.html">Image Viewer</a></button>
+            <button><a href="#">Sign in</a></button>
+        </li>
+    </div>
+
+    <script>        
+        // Defining event listener function
+        function displayWindowSize(){
+            // Get width and height of the window excluding scrollbars
+            var w = document.documentElement.clientWidth;
+            var h = document.documentElement.clientHeight;
+            
+            // Display result inside a div element
+            document.getElementById("result").innerHTML = "Width: " + w + ", " + "Height: " + h;
+        }
+            
+        // Attaching the event listener function to window's resize event
+        window.addEventListener("resize", displayWindowSize);
+        
+        // Calling the function for the first time
+        displayWindowSize();
+        </script>
+    
+</body>
+</html>
