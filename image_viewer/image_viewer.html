@@ -7,13 +7,13 @@
     <title>EndoSim Image Viewer</title>
     <link rel="stylesheet" href="image_viewer_style.css">
     <link rel="stylesheet" href="image_magnifier_style.css">
+    <link rel="stylesheet" href="image_drawing_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="image_viewer_code.js"></script>
+    <script type='text/javascript' src="image_viewer_code.js"></script>
     <script src="image_magnifier_code.js"></script>
+    <script src="image_drawing_code.js"></script>
 </head>
 <body>
-    <img id="img" src="./images/HR_Stitched.png" style="display: none;"/>
-
     <div class="menubar">
         <body>
             <ul>
@@ -44,32 +44,26 @@
                 <li><a href="#"><i class="fa fa-mouse-pointer"></i></a></li>
                 <li><a href="#"><i class="fa fa-arrows"></i></a></li>
                 <li onclick="magnify()"><a href="#"><i class="fa fa-search"></i></a></li>
-                <li><a href="#"><i class="fa fa-pencil"></i></a></li>
+                <li onclick="draw_annotation()"><a href="#"><i class="fa fa-pencil"></i></a></li>
             </ul>
         </div>
 
 
         <div class="Canvas">
             <canvas id="mainCanvas" width="1080" height="720" style="border:1px solid #000000;"></canvas>
-            <canvas id="zoomCanvas" width="250" height="250" style="position:absolute; left:100px; display:none"></canvas>
+            <canvas id="zoomCanvas" width="100" height="100" style="position:absolute; left:100px; display:none"></canvas>            
         </div>
-    
-    
-        <div class="image_settings float-right">
-            <div class="file">
-                <ul>
-                    <!-- Image pannel for zoom -->
-    
-                    <li>Slide name: 
-                        <input type="text" name="img_name">
-                        <button class="slide_open">Open</button>
-                        <span class="tooltiptext">Tooltip text</span>
-                    </li>
-    
-                    <li>Fibre name: <input type="text" name="fibre_name"><button>Open</button></li>
-                </ul>
-            </div>
-    
+
+        <div class="tab float-right">
+            <button class="tablinks" onclick="openTab(event, 'image_settings')">Image Settings</button>
+            <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Magnify Settings</button>
+            <button class="tablinks" onclick="openTab(event, 'draw_settings')">Drawing Settings</button>
+        </div>
+    </div>
+
+
+    <div id="image_settings" class="tabcontent">
+        <div class="image_settings">
             <div class="enhancement_method">
                 <ul>
                     <li>
@@ -80,10 +74,10 @@
                         <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
                         <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
                     </li>
-    
+        
                 </ul>
             </div>
-    
+        
             <div class="contrast_sliders">
                 <li>
                     <input type="range" orient="vertical" />
@@ -96,12 +90,65 @@
                     <input type="range" orient="vertical" />
                     Red
                 </li>
-            </div>
+            </div>    
         </div>
     </div>
 
-    
+    <div id="magnify_settings" class="tabcontent">
+        <div class="slider_container">
+            <ul>
+                <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="2" class="slider" onchange="zoomSize_changed()"></li>
+                <label for="zoomSize">Zoom size: <span id="zoomSizeValue"></span></label>
 
+                <li><input id="magAmount" type="range" min="2" max="10" value="2" class="slider" onchange="magAmount_changed()"></li>
+                <label for="magAmount">Magnification: <span id="magValue"></span></label>
+            </ul>
+        </div>
+    </div>
+
+    <div id="draw_settings" class="tabcontent">
+        <div class="draw_container">
+            <div class="colors">
+                <button type="button" value="#0000ff"></button>
+                <button type="button" value="#009fff"></button>
+                <button type="button" value="#0fffff"></button>
+                <button type="button" value="#bfffff"></button>
+                <button type="button" value="#000000"></button>
+                <button type="button" value="#333333"></button>
+                <button type="button" value="#666666"></button>
+                <button type="button" value="#999999"></button>
+                <button type="button" value="#ffcc66"></button>
+                <button type="button" value="#ffcc00"></button>
+                <button type="button" value="#ffff00"></button>
+                <button type="button" value="#ffff99"></button>
+                <button type="button" value="#003300"></button>
+                <button type="button" value="#555000"></button>
+                <button type="button" value="#00ff00"></button>
+                <button type="button" value="#99ff99"></button>
+                <button type="button" value="#f00000"></button>
+                <button type="button" value="#ff6600"></button>
+                <button type="button" value="#ff9933"></button>
+                <button type="button" value="#f5deb3"></button>
+                <button type="button" value="#330000"></button>
+                <button type="button" value="#663300"></button>
+                <button type="button" value="#cc6600"></button>
+                <button type="button" value="#deb887"></button>
+                <button type="button" value="#aa0fff"></button>
+                <button type="button" value="#cc66cc"></button>
+                <button type="button" value="#ff66ff"></button>
+                <button type="button" value="#ff99ff"></button>
+                <button type="button" value="#e8c4e8"></button>
+                <button type="button" value="#ffffff"></button>
+            </div>
+            <div class="brushes">
+                <button type="button" value="1"></button>
+                <button type="button" value="2"></button>
+                <button type="button" value="3"></button>
+                <button type="button" value="4"></button>
+                <button type="button" value="5"></button>
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>

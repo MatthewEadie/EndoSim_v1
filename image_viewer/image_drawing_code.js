@@ -1,50 +1,82 @@
-function draw(){
-    const paintCanvas = document.querySelector( '.js-paint' );
-    const context = paintCanvas.getContext( '2d' );
-    context.lineCap = 'round';
+//https://codepen.io/alperentalaslioglu/pen/yPGgvP
+function draw_annotation() {
 
-    const colorPicker = document.querySelector( '.js-color-picker');
-
-    colorPicker.addEventListener( 'change', event => {
-        context.strokeStyle = event.target.value; 
-    } );
-
-    const lineWidthRange = document.querySelector( '.js-line-range' );
-    const lineWidthLabel = document.querySelector( '.js-range-value' );
-
-    lineWidthRange.addEventListener( 'input', event => {
-        const width = event.target.value;
-        lineWidthLabel.innerHTML = width;
-        context.lineWidth = width;
-    } );
-
-    let x = 0, y = 0;
-    let isMouseDown = false;
-
-    const stopDrawing = () => { isMouseDown = false; }
-
-    const startDrawing = event => {
-        isMouseDown = true;   
-    [x, y] = [event.offsetX, event.offsetY];  
+    // Definitions
+    var canvas = document.getElementById("mainCanvas");
+    var context = canvas.getContext("2d");
+    var boundings = canvas.getBoundingClientRect();
+  
+    // Specifications
+    var mouseX = 0;
+    var mouseY = 0;
+    context.strokeStyle = 'black'; // initial brush color
+    context.lineWidth = 1; // initial brush width
+    var isDrawing = false;
+  
+  
+    // Handle Colors
+    var colors = document.getElementsByClassName('colors')[0];
+  
+    colors.addEventListener('click', function(event) {
+      context.strokeStyle = event.target.value || 'black';
+    });
+  
+    // Handle Brushes
+    var brushes = document.getElementsByClassName('brushes')[0];
+  
+    brushes.addEventListener('click', function(event) {
+      context.lineWidth = event.target.value || 1;
+    });
+  
+    // Mouse Down Event
+    canvas.addEventListener('mousedown', function(event) {
+      setMouseCoordinates(event);
+      isDrawing = true;
+  
+      // Start Drawing
+      context.beginPath();
+      context.moveTo(mouseX, mouseY);
+    });
+  
+    // Mouse Move Event
+    canvas.addEventListener('mousemove', function(event) {
+      setMouseCoordinates(event);
+  
+      if(isDrawing){
+        context.lineTo(mouseX, mouseY);
+        context.stroke();
+      }
+    });
+  
+    // Mouse Up Event
+    canvas.addEventListener('mouseup', function(event) {
+      setMouseCoordinates(event);
+      isDrawing = false;
+    });
+  
+    // Handle Mouse Coordinates
+    function setMouseCoordinates(event) {
+      mouseX = event.clientX - boundings.left;
+      mouseY = event.clientY - boundings.top;
     }
-
-    const drawLine = event => {
-        if ( isMouseDown ) {
-            const newX = event.offsetX;
-            const newY = event.offsetY;
-            context.beginPath();
-            context.moveTo( x, y );
-            context.lineTo( newX, newY );
-            context.stroke();
-            //[x, y] = [newX, newY];
-            x = newX;
-            y = newY;
-        }
-    }
-
-    paintCanvas.addEventListener( 'mousedown', startDrawing );
-    paintCanvas.addEventListener( 'mousemove', drawLine );
-    paintCanvas.addEventListener( 'mouseup', stopDrawing );
-    paintCanvas.addEventListener( 'mouseout', stopDrawing );
-
-}
+  
+    // // Handle Clear Button
+    // var clearButton = document.getElementById('clear');
+  
+    // clearButton.addEventListener('click', function() {
+    //   context.clearRect(0, 0, canvas.width, canvas.height);
+    // });
+  
+    // // Handle Save Button
+    // var saveButton = document.getElementById('save');
+  
+    // saveButton.addEventListener('click', function() {
+    //   var imageName = prompt('Please enter image name');
+    //   var canvasDataURL = canvas.toDataURL();
+    //   var a = document.createElement('a');
+    //   a.href = canvasDataURL;
+    //   a.download = imageName || 'drawing';
+    //   a.click();
+    // });
+  };
+  
