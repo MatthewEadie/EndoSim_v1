@@ -13,7 +13,7 @@
     cursor: pointer;
     width: 20px;
     height: 20px;
-    margin-bottom: 5px
+    /* margin-bottom: 5px */
   }
   
   .colors button:nth-of-type(1) {
@@ -180,4 +180,24 @@
   
   .brushes button:nth-of-type(5):after {
     height: 5px;
+  }
+
+  .draw_buttons {
+    height: 80px;
+    padding-top: 10px;
+  }
+  
+  .draw_buttons button {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    background-color: #ece8e8;
+    margin-bottom: 5px;
+    padding: 5px;
+    height: 30px;
+    outline: none;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
   }

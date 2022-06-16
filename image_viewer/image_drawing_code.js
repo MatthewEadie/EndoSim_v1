@@ -1,3 +1,6 @@
+//https://stackoverflow.com/questions/25907163/html5-canvas-eraser-tool-without-overdraw-white-color
+//Code for eraser for later
+
 //https://codepen.io/alperentalaslioglu/pen/yPGgvP
 function draw_annotation() {
 
@@ -60,23 +63,23 @@ function draw_annotation() {
       mouseY = event.clientY - boundings.top;
     }
   
-    // // Handle Clear Button
-    // var clearButton = document.getElementById('clear');
+    // Handle Clear Button
+    var clearButton = document.getElementById('clear');
   
-    // clearButton.addEventListener('click', function() {
-    //   context.clearRect(0, 0, canvas.width, canvas.height);
-    // });
+    clearButton.addEventListener('click', function() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    });
   
-    // // Handle Save Button
-    // var saveButton = document.getElementById('save');
+    // Handle Save Button
+    var saveButton = document.getElementById('save');
   
-    // saveButton.addEventListener('click', function() {
-    //   var imageName = prompt('Please enter image name');
-    //   var canvasDataURL = canvas.toDataURL();
-    //   var a = document.createElement('a');
-    //   a.href = canvasDataURL;
-    //   a.download = imageName || 'drawing';
-    //   a.click();
-    // });
+    saveButton.addEventListener('click', function() {
+      var imageName = prompt('Please enter image name');
+      var canvasDataURL = canvas.toDataURL();
+      var a = document.createElement('a');
+      a.href = canvasDataURL;
+      a.download = imageName || 'drawing';
+      a.click();
+    });
   };
   

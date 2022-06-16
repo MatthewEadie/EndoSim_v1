@@ -26,7 +26,7 @@ window.onload = function(){
     var ctx = canvas.getContext("2d")
     var image = new Image()
     image.onload = function(){        
-        ctx.drawImage(image,0,0)
+        ctx.drawImage(image,0,0,canvas.width,canvas.height)
     }
     image.src = '../images/HR_Stitched.png';
 };
@@ -39,7 +39,7 @@ function load_HR_image(){
     var ctx = canvas.getContext("2d")
     var image = new Image()
     image.onload = function(){        
-        ctx.drawImage(image,0,0)
+        ctx.drawImage(image,0,0,canvas.width,canvas.height)
     }
     image.src = '../images/HR_Stitched.png';
 }
@@ -49,7 +49,7 @@ function load_Linear_image(){
     var ctx = canvas.getContext("2d")
     var image = new Image()
     image.onload = function(){        
-        ctx.drawImage(image,0,0)
+        ctx.drawImage(image,0,0,canvas.width,canvas.height)
     }
     image.src = '../images/Interp_Stitched.png';
 }
@@ -59,7 +59,7 @@ function load_Gaussian_image(){
     var ctx = canvas.getContext("2d")
     var image = new Image()
     image.onload = function(){        
-        ctx.drawImage(image,0,0)
+        ctx.drawImage(image,0,0,canvas.width,canvas.height)
     }
     image.src = '../images/HR_Stitched.png';
 }
@@ -69,7 +69,7 @@ function load_SR_image(){
     var ctx = canvas.getContext("2d")
     var image = new Image()
     image.onload = function(){        
-        ctx.drawImage(image,0,0)
+        ctx.drawImage(image,0,0,canvas.width,canvas.height)
     }
     image.src = '../images/SR_Stitched.png';
 }
