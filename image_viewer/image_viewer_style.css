@@ -12,7 +12,7 @@ style {
 }
 
 body {
-    /* overflow: hidden; Hide scrollbars */
+    overflow: hidden; /*Hide scrollbars*/
     background-color: #5a5b5e;
 }
 
@@ -92,7 +92,7 @@ body {
     user-select: none;
 }
 
-.toolbar ul a{
+.toolbar ul label{
     display: block;
     height: 100%;
     width: 100%;
@@ -163,7 +163,7 @@ body {
     position: fixed;
     margin-top: 2%;
     width: 100%;
-    /* z-index: 10; */
+    z-index: 0;
     left: 85%;
 }
 

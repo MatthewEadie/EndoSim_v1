@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="image_magnifier_style.css">
     <link rel="stylesheet" href="image_drawing_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type='text/javascript' src="image_viewer_code.js"></script>
-    <script src="image_magnifier_code.js"></script>
+
     <script src="image_drawing_code.js"></script>
+
 </head>
 <body>
+
     <div class="menubar">
         <body>
             <ul>
@@ -41,10 +42,23 @@
     <div class="image_viewer_screen">
         <div class="toolbar">
             <ul>
-                <li><a href="#"><i class="fa fa-mouse-pointer"></i></a></li>
-                <li><a href="#"><i class="fa fa-arrows"></i></a></li>
-                <li onclick="magnify()"><a href="#"><i class="fa fa-search"></i></a></li>
-                <li onclick="draw_annotation()"><a href="#"><i class="fa fa-pencil"></i></a></li>
+                
+                <li>
+                    <input type="checkbox" id="checkPoint">
+                    <label onclick="pause()" for="checkPoint" class="fa fa-mouse-pointer"></label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkMove">
+                    <label onclick="toggleMove()" for="checkMove" class="fa fa-arrows"></label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkMag">
+                    <label onclick="toggleMagnify()" for="checkMag" class="fa fa-search"></label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkDraw">
+                    <label for="checkDraw" class="fa fa-pencil"></label>  <!--onclick="draw_annotation()"-->
+                </li>
             </ul>
         </div>
 
@@ -52,7 +66,8 @@
         <div class="Canvas">
             <canvas id="mainCanvas" width="1480" height="720" style="z-index:0; border:1px solid #000000;"></canvas>
             <!-- <canvas id="mainCanvas" width="1080" height="720" style="z-index:1; border:1px solid #ff0000;"></canvas> -->
-            <canvas id="zoomCanvas" width="100" height="100" style="position:absolute; top:0; left:100; display:none"></canvas>            
+            <canvas id="compareCanvas" width="100" height="100" style="position:absolute; top:0; left:100; display:none"></canvas>            
+            <!-- <canvas id="zoomCanvas" width="100" height="100" style="position:absolute; top:0; left:100; display:none"></canvas>   -->
         </div>
 
         <div class="tab float-right">
@@ -154,6 +169,9 @@
             </div>
         </div>
     </div>
+
+    <script src="image_viewer_code.js"></script>
+    <script src="new_mag.js"></script>
     
 </body>
 </html>
