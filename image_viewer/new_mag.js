@@ -7,13 +7,6 @@ const zoomCanvas = document.getElementById("compareCanvas");
 zoomCanvas.setAttribute("class", "img-magnifier-glass");
 let zoomCtx = zoomCanvas.getContext("2d");
 
-var compImage = new Image()
-compImage.src = '../images/HR_Stitched.png';
-
-
-
-
-
 let v_pause = true
 
 let cameraOffset = { x: 200, y: 125 }
@@ -24,6 +17,63 @@ let SCROLL_SENSITIVITY = 0.0005
 
 var image = new Image()
 image.src = '../images/HR_Stitched.png';
+
+var compImage = new Image()
+compImage.src = '../images/HR_Stitched.png';
+
+let zoomSlider = document.getElementById("zoomSize");
+let zoomOutput = document.getElementById("zoomSizeValue");
+
+let magSlider = document.getElementById("magAmount");
+let magOutput = document.getElementById("magValue");
+
+zoomOutput.innerHTML = zoomSlider.value;
+zoomSlider.oninput = function() {
+    zoomOutput.innerHTML = this.value;
+    zoomCanvas.width=this.value
+    zoomCanvas.height=this.value
+}
+
+magOutput.innerHTML = magSlider.value;
+magSlider.oninput = function() {
+    magOutput.innerHTML = this.value;
+}
+
+
+function load_HR_image(){
+    compImage.src = '../images/HR_Stitched.png';
+    draw()
+}
+
+function load_Linear_image(){
+    compImage.src = '../images/Interp_Stitched.png';
+    draw()
+}
+
+function load_Gaussian_image(){
+    compImage.src = '../images/HR_Stitched.png';
+    draw()
+}
+
+function load_SR_image(){
+    compImage.src = '../images/SR_Stitched.png';
+    draw()
+}
+
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
 
 function draw()
 {
@@ -280,19 +330,12 @@ function draw_annotation() {
 
 
 function cursorMag(e){
-
-    // zoomCtx.translate( zoomCanvas.width / 2, zoomCanvas.height / 2 )
-    // zoomCtx.scale(cameraZoom+5, cameraZoom+5)
-    zoomCtx.clearRect(0,0, window.innerWidth, window.innerHeight)
-    // zoomCtx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y )
-
-
     zoomCtx.fillStyle = "white";
 
-    var mag = document.getElementById("magAmount");
+    // var mag = document.getElementById("magAmount");
 
     zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
-    zoomCtx.drawImage(compImage, e.x-125, e.y-125, 250, 250, 0,0, (250*mag.value), (250*mag.value));
+    zoomCtx.drawImage(compImage, e.x-125, e.y-125, 250, 250, 0,0, (250), (250));
 
     // console.log(zoom.style);
     zoomCanvas.style.top = e.pageY + 10 + "px"
