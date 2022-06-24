@@ -9,32 +9,59 @@
     <link rel="stylesheet" href="home_style.css">
 </head>
 <body>
-    <h1>EndoSim home page</h1>
-    <div class="controls">
+    <div class="main_content">
+        <div class="header">
+            <h1>EndoSim home page</h1>
+        </div>
+
+        <div class="collection_container">
+            <section data-auto-id="1">
+                <article class="dataset_article" id="image1" data-auto-id="imageTile">
+                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
+                        <div class="thumbnail">
+                            <img class="dataset_image" sizes="(min-width: 768px)" src="./images/HR_Stitched.png">
+                        </div>
+                        <div class="dataset_name">
+                            <h2>Image 0001</h2>
+                        </div>
+                    </a>
+                </article>
+                <article class="dataset_article" id="image2" data-auto-id="imageTile">
+                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
+                        <div class="thumbnail">
+                            <img class="dataset_image" sizes="(min-width: 768px)" src="./images/Interp_Stitched.png">
+                        </div>
+                        <div class="dataset_name">
+                            <h2>Image 0002</h2>
+                        </div>
+                    </a>
+                </article>
+            </section>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+    <!-- <div class="controls">
         <header>Controls</header>
         <li>
             <button><a href="./image_viewer/image_viewer.html">Image Viewer</a></button>
             <button><a href="#">Sign in</a></button>
         </li>
-    </div>
+    </div> -->
 
-    <script>        
-        // Defining event listener function
-        function displayWindowSize(){
-            // Get width and height of the window excluding scrollbars
-            var w = document.documentElement.clientWidth;
-            var h = document.documentElement.clientHeight;
-            
-            // Display result inside a div element
-            document.getElementById("result").innerHTML = "Width: " + w + ", " + "Height: " + h;
-        }
-            
-        // Attaching the event listener function to window's resize event
-        window.addEventListener("resize", displayWindowSize);
-        
-        // Calling the function for the first time
-        displayWindowSize();
-        </script>
+    
     
 </body>
 </html>
