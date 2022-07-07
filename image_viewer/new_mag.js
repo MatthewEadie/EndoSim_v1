@@ -15,11 +15,14 @@ let MAX_ZOOM = 5
 let MIN_ZOOM = 0.1
 let SCROLL_SENSITIVITY = 0.0005
 
+
+var dataset_location = "../images/imageset_11/"
+
 var image = new Image()
-image.src = '../images/HR_Stitched.png';
+image.src = dataset_location + 'HR_Stitched.png';
 
 var compImage = new Image()
-compImage.src = '../images/HR_Stitched.png';
+compImage.src = dataset_location + 'HR_Stitched.png';
 
 let zoomSlider = document.getElementById("zoomSize");
 let zoomOutput = document.getElementById("zoomSizeValue");
@@ -41,22 +44,22 @@ magSlider.oninput = function() {
 
 
 function load_HR_image(){
-    compImage.src = '../images/HR_Stitched.png';
+    compImage.src = dataset_location + 'HR_Stitched.png';
     draw()
 }
 
 function load_Linear_image(){
-    compImage.src = '../images/Interp_Stitched.png';
+    compImage.src = dataset_location + 'Interp_Stitched.png';
     draw()
 }
 
 function load_Gaussian_image(){
-    compImage.src = '../images/HR_Stitched.png';
+    compImage.src = dataset_location + 'HR_Stitched.png';
     draw()
 }
 
 function load_SR_image(){
-    compImage.src = '../images/SR_Stitched.png';
+    compImage.src = dataset_location + 'SR_Stitched.png';
     draw()
 }
 
