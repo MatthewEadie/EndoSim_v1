@@ -6,151 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EndoSim Homepage</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="home_style.css">
 </head>
 <body>
-    <div class="main_content">
-        <div class="header">
-            <h1>EndoSim home page</h1>
+    <div class="header">
+        <div class="row">
+            <div class="col-3">
+                <h1>EndoSim home page</h1> <!--Endosim name-->
+            </div>
+            
+            <div class="col-3">
+                <img src="media/University_of_Dundee_Logo.png" width="300px" style="float: right;"> <!--UoD logo-->
+            </div>
         </div>
-
-        <div class="collection_container">
-            <section data-auto-id="1">
-                <article class="dataset_article" id="image1" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_1/Image1.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0001</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_2/Image2.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0002</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image3" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_3/Image3.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0003</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image4" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_4/Image4.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0004</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_5/Image5.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0005</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_6/Image6.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0006</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_7/Image7.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0007</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_8/Image8.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0008</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_9/Image9.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0009</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_10/Image10.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0010</h2>
-                        </div>
-                    </a>
-                </article>
-                <article class="dataset_article" id="image2" data-auto-id="imageTile">
-                    <a class="dataset_container" href="./image_viewer/image_viewer.html">
-                        <div class="thumbnail">
-                            <img class="dataset_image" src="./images/imageset_11/HR_Stitched.png">
-                        </div>
-                        <div class="dataset_name">
-                            <h2>Image 0011</h2>
-                        </div>
-                    </a>
-                </article>
-            </section>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
     </div>
 
+    <div class="container">
+        <div class="row-filters">
+            <div class="col-3 col-search">
+                <input type="text"> <!-- Search bar -->
+                <button>
+                    <span></span> <!-- Search button -->
+                </button>
+            </div>
+            <div class="col-3 col-filters">  <!--Filters-->
+                <select name="" id="">
+                    <option value="">Default</option>
+                    <option value="">Highest rated</option>
+                    <option value="">Something</option>
+                    <option value="">Another</option>
+                </select>
+            </div>
+        </div>
 
+        <div class="image-container">
+            <table>
+                <tr>
+                    <a href="./image_viewer.html">
+                        <div class="dataset-container"> <!--First dataset in row-->
+                            <img src="images/dataset1/Image1_HR.png"> 
+                            <p>dataset name</p>
+                        </div>
+                    </a>
+                    <div class="dataset-container"> <!--Second dataset in row-->
+                        <img src="images/dataset1/Image2_HR.png"> 
+                        <p>dataset name</p>
+                    </div>
+                    <div class="dataset-container"> <!--Third dataset in row-->
+                        <img src="images/dataset1/Image3_HR.png"> 
+                        <p>dataset name</p>
+                    </div>
+                </tr>  
 
-    <!-- <div class="controls">
-        <header>Controls</header>
-        <li>
-            <button><a href="./image_viewer/image_viewer.html">Image Viewer</a></button>
-            <button><a href="#">Sign in</a></button>
-        </li>
-    </div> -->
+            </table>
+        </div>
+    </div>
 
+    <div class="footer">
+        <div class="row">
+            <div class="col-3">
+                <h3>Endosim V1</h3>
+            </div>
+            <div class="col-3">
+                <p>Information on endosim</p>
+            </div>
+            <div class="col-3">
+                <p>Contact details about endosim</p>
+            </div>
+        </div>
+    </div>
     
     
 </body>

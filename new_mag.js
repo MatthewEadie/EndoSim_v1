@@ -16,13 +16,14 @@ let MIN_ZOOM = 0.1
 let SCROLL_SENSITIVITY = 0.0005
 
 
-var dataset_location = "../images/imageset_11/"
+var dataset_location = "./images/dataset1/"
+var image_number = 11
 
 var image = new Image()
-image.src = dataset_location + 'HR_Stitched.png';
+image.src = dataset_location + 'image' + image_number + '_HR.png';
 
 var compImage = new Image()
-compImage.src = dataset_location + 'HR_Stitched.png';
+compImage.src = dataset_location + 'image' + image_number + '_HR.png';;
 
 let zoomSlider = document.getElementById("zoomSize");
 let zoomOutput = document.getElementById("zoomSizeValue");
@@ -44,22 +45,22 @@ magSlider.oninput = function() {
 
 
 function load_HR_image(){
-    compImage.src = dataset_location + 'HR_Stitched.png';
+    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
     draw()
 }
 
 function load_Linear_image(){
-    compImage.src = dataset_location + 'Interp_Stitched.png';
+    compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
     draw()
 }
 
 function load_Gaussian_image(){
-    compImage.src = dataset_location + 'HR_Stitched.png';
+    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
     draw()
 }
 
 function load_SR_image(){
-    compImage.src = dataset_location + 'SR_Stitched.png';
+    compImage.src = dataset_location + 'image' + image_number + '_SR.png';
     draw()
 }
 
