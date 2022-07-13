@@ -15,31 +15,88 @@
 <body>
 
     <div class="menubar">
-        <body>
-            <ul>
-                <li class="active"><a href="../index.html">Home</a></li>
-                <li><a href="#">About Us</a>
-                    <div class="about-sub-menu">
-                        <ul>
-                            <li><a href="#">Mission</a></li>
-                            <li><a href="#">Vision</a></li>
-                            <li><a href="#">Team</a></li>
-                        </ul>
-                    </div>
-                </li>
+        <ul>
+            <li onclick="displayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li>
+            <li class="active"><a href="../index.html">Home</a></li>
+            <li><a href="#">About Us</a>
+                <div class="about-sub-menu">
+                    <ul>
+                        <li><a href="#">Mission</a></li>
+                        <li><a href="#">Vision</a></li>
+                        <li><a href="#">Team</a></li>
+                    </ul>
+                </div>
+            </li>
 
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Clients</a></li>
-                <li><a href="#">Investors</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Training</a></li>
-                <li><a href="#">Content</a></li>
-            </ul>
-        </body>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Clients</a></li>
+            <li><a href="#">Investors</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Training</a></li>
+            <li><a href="#">Content</a></li>
+        </ul>
     </div>
 
+    <script>
+        function displayDataset(){
+            //get width of col-dataset
+            //if col-dataset > 0 
+            //set to 0
+            //else
+            //set to 10%
+        }
+    </script>
+
     <div class="image_viewer_screen">
-        <div class="toolbar">
+        <div class="col-dataset">
+            <nav>
+            <ul>
+                <li>
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image1_HR.png">
+                        <p>Image 1</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image2_HR.png">
+                        <p>Image 2</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image2_HR.png">
+                        <p>Image 2</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image2_HR.png">
+                        <p>Image 2</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image2_HR.png">
+                        <p>Image 2</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image2_HR.png">
+                        <p>Image 2</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image2_HR.png">
+                        <p>Image 2</p>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        </div>
+        <!-- <div class="toolbar">
             <ul>
                 
                 <li>
@@ -56,24 +113,21 @@
                 </li>
                 <li>
                     <input type="checkbox" id="checkDraw">
-                    <label for="checkDraw" class="fa fa-pencil"></label>  <!--onclick="draw_annotation()"-->
+                    <label onclick="draw_annotation()" for="checkDraw" class="fa fa-pencil"></label>
                 </li>
             </ul>
-        </div>
-
+        </div> -->
 
         <div class="Canvas">
-            <canvas id="mainCanvas" width="1480" height="720" style="z-index:0; border:1px solid #000000;"></canvas>
-            <!-- <canvas id="mainCanvas" width="1080" height="720" style="z-index:1; border:1px solid #ff0000;"></canvas> -->
-            <canvas id="compareCanvas" width="200" height="200" style="position:absolute; top:0; left:100; display:none"></canvas>            
-            <!-- <canvas id="zoomCanvas" width="100" height="100" style="position:absolute; top:0; left:100; display:none"></canvas>   -->
+            <canvas class="mainCanvas" id="mainCanvas"></canvas>
+            <canvas class="compareCanvas" id="compareCanvas"></canvas>            
         </div>
 
-        <div class="tab float-right">
+        <!-- <div class="tab float-right">
             <button class="tablinks" onclick="openTab(event, 'image_settings')">Image Settings</button>
             <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Magnify Settings</button>
             <button class="tablinks" onclick="openTab(event, 'draw_settings')">Drawing Settings</button>
-        </div>
+        </div> -->
     </div>
 
 
