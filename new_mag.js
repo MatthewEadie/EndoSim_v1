@@ -64,6 +64,11 @@ function load_SR_image(){
     draw()
 }
 
+function changeImage(imgNo){
+    image.src = dataset_location + 'image' + imgNo + '_HR.png';
+    compImage.src = dataset_location + 'image' + imgNo + '_HR.png';
+}
+
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -244,7 +249,6 @@ function toggleMove(){
 
 //https://codepen.io/alperentalaslioglu/pen/yPGgvP
 function draw_annotation() {
-    alert('drawing')
     // Definitions
     var boundings = canvas.getBoundingClientRect();
   
@@ -274,9 +278,6 @@ function draw_annotation() {
     canvas.addEventListener('mousedown', function(event) {
       setMouseCoordinates(event);
 
-        alert(mouseX+","+mouseY)
-        alert("Zoom: "+ cameraZoom)
-
       isDrawing = true;
   
       // Start Drawing
@@ -305,8 +306,6 @@ function draw_annotation() {
     //   mouseX = event.clientX/cameraZoom - cameraOffset.x //+ boundings.left; ///cameraZoom
     //   mouseY = event.clientY/cameraZoom - cameraOffset.y //+ boundings.top;
 
-    // alert('1' + mouseX)
-
       mouseX = getEventLocation(e).x- cameraOffset.x/cameraZoom //cameraZoom
       mouseY = getEventLocation(e).y- cameraOffset.y/cameraZoom
 
@@ -333,13 +332,42 @@ function draw_annotation() {
   };
 
 
+function togglePlaceAnnotation(){
+    var checkPlaceAnno = document.getElementById("checkPlaceAnnotation");
+    if (!checkPlaceAnno.checked) {
+        canvas.addEventListener('mousedown', placeAnnotation)
+    } else {
+        canvas.removeEventListener('mousedown', placeAnnotation)   
+    }
+}
+
+function placeAnnotation(e){
+    const textBox = document.getElementById("annotationTextBox")
+    var text = textBox.value //Get text from textbox
+
+    //place text at position of mouse
+    ctx.fillStyle="#990000";
+    ctx.font="30px futura";
+    ctx.textBaseline="top";
+    ctx.fillText(text,e.x,e.y); 
+
+    //place circle at position of mouse
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'pink';
+    ctx.beginPath();
+    ctx.arc(e.x, e.y+10, 10, 0, 2 * Math.PI);
+    ctx.stroke();
+}
+
+
+
 function cursorMag(e){
     zoomCtx.fillStyle = "white";
 
     // var mag = document.getElementById("magAmount");
 
     zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
-    zoomCtx.drawImage(compImage, e.x-125, e.y-125, 250, 250, 0,0, (250), (250));
+    zoomCtx.drawImage(compImage, e.x-300, e.y-200, 1480, 720, 0,0, 1480, 720);
 
     // console.log(zoom.style);
     zoomCanvas.style.top = e.pageY + 10 + "px"

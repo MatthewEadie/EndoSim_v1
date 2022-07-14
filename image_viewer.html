@@ -51,54 +51,60 @@
         <div class="col-dataset">
             <nav>
             <ul>
-                <li>
+                <li onclick="changeImage('1')">
                     <div class="dataset_thumbnail">
                         <img src="images/dataset1/Image1_HR.png">
                         <p>Image 1</p>
                     </div>
                 </li>
-                <li>
+                <li onclick="changeImage('2')">
                     <div class="dataset_thumbnail">
                         <img src="images/dataset1/Image2_HR.png">
                         <p>Image 2</p>
                     </div>
                 </li>
-                <li>
+                <li onclick="changeImage('3')">
                     <div class="dataset_thumbnail">
-                        <img src="images/dataset1/Image2_HR.png">
-                        <p>Image 2</p>
+                        <img src="images/dataset1/Image3_HR.png">
+                        <p>Image 3</p>
                     </div>
                 </li>
-                <li>
+                <li onclick="changeImage('4')">
                     <div class="dataset_thumbnail">
-                        <img src="images/dataset1/Image2_HR.png">
-                        <p>Image 2</p>
+                        <img src="images/dataset1/Image4_HR.png">
+                        <p>Image 4</p>
                     </div>
                 </li>
-                <li>
+                <li onclick="changeImage('5')">
                     <div class="dataset_thumbnail">
-                        <img src="images/dataset1/Image2_HR.png">
-                        <p>Image 2</p>
+                        <img src="images/dataset1/Image5_HR.png">
+                        <p>Image 5</p>
                     </div>
                 </li>
-                <li>
+                <li onclick="changeImage('6')">
                     <div class="dataset_thumbnail">
-                        <img src="images/dataset1/Image2_HR.png">
-                        <p>Image 2</p>
+                        <img src="images/dataset1/Image6_HR.png">
+                        <p>Image 6</p>
                     </div>
                 </li>
-                <li>
+                <li onclick="changeImage('7')">
                     <div class="dataset_thumbnail">
-                        <img src="images/dataset1/Image2_HR.png">
-                        <p>Image 2</p>
+                        <img src="images/dataset1/Image7_HR.png">
+                        <p>Image 7</p>
                     </div>
                 </li>
             </ul>
         </nav>
         </div>
-        <!-- <div class="toolbar">
+        
+
+        <div class="Canvas">
+            <canvas class="mainCanvas" id="mainCanvas" width="2048" height="1080"></canvas>
+            <canvas class="compareCanvas" id="compareCanvas" width="200" height="200" style="display:none;"></canvas>            
+        </div>
+
+        <div class="toolbar">
             <ul>
-                
                 <li>
                     <input type="checkbox" id="checkPoint">
                     <label onclick="pause()" for="checkPoint" class="fa fa-mouse-pointer"></label>
@@ -115,21 +121,27 @@
                     <input type="checkbox" id="checkDraw">
                     <label onclick="draw_annotation()" for="checkDraw" class="fa fa-pencil"></label>
                 </li>
+                <li>
+                    <input type="checkbox" id="checkPlaceAnnotation">
+                    <label onclick="togglePlaceAnnotation()" for="checkPlaceAnnotation" class="fa fa-font"></label>
+                </li>
             </ul>
-        </div> -->
 
-        <div class="Canvas">
-            <canvas class="mainCanvas" id="mainCanvas"></canvas>
-            <canvas class="compareCanvas" id="compareCanvas"></canvas>            
+            <div class="tab float-right">
+                <button class="tablinks" onclick="openTab(event, 'annotation_settings')">Annotation Settings</button>
+                <button class="tablinks" onclick="openTab(event, 'image_settings')">Image Settings</button>
+                <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Magnify Settings</button>
+                <button class="tablinks" onclick="openTab(event, 'draw_settings')">Drawing Settings</button>
+            </div>
         </div>
 
-        <!-- <div class="tab float-right">
-            <button class="tablinks" onclick="openTab(event, 'image_settings')">Image Settings</button>
-            <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Magnify Settings</button>
-            <button class="tablinks" onclick="openTab(event, 'draw_settings')">Drawing Settings</button>
-        </div> -->
+
     </div>
 
+    <div id="annotation_settings" class="tabcontent">
+        <p>Input annotation text</p>
+        <input type="text" id="annotationTextBox">
+    </div>
 
     <div id="image_settings" class="tabcontent">
         <div class="image_settings">
@@ -151,13 +163,6 @@
                 <li>
                     <input type="range" orient="vertical" />
                     <input type="range" orient="vertical" />
-                    Green
-                    <input type="range" orient="vertical" />
-                    <input type="range" orient="vertical" />
-                    Blue
-                    <input type="range" orient="vertical" />
-                    <input type="range" orient="vertical" />
-                    Red
                 </li>
             </div>    
         </div>
