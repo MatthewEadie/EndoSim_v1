@@ -127,16 +127,17 @@ nav ul li{
     width: 15%;
     background: #323338;
     z-index: 1;
+    height: 20%;
 }
 
 .toolbar ul li{
     display: inline-block;
     width: 23%;
+    text-align: center;
 }
 
 .toolbar ul label{
     display: block;
-    align-items: center;
     line-height: 65px;
     font-size: 20px;
     color: white;
@@ -145,6 +146,11 @@ nav ul li{
     /* border-top: 1px solid rgba(255, 255, 255, .1);
     border-bottom: 1px solid black; */
 }
+.checkBox{
+    display: none;
+}
+
+
 
 
 /* Style the tab */
@@ -180,18 +186,18 @@ nav ul li{
     background-color: #ccc;
   }
   
-  /* Style the tab content */
-  .tabcontent {
-    position:static;
-    float: right;
-    /* height: 100%; */
+/* Style the tab content */
+.tabcontent {
+    padding-left: 10px;
     display:none;
     z-index: 10;
     position: fixed;
-    margin-top: 2%;
+}
+.tabcontent.draw{
     width: 100%;
-    z-index: 0;
-    left: 85%;
+}
+.tabcontent.magnify{
+    width: 100%;
 }
 
 .contrast_sliders input[type=range][orient=vertical]
@@ -201,6 +207,10 @@ nav ul li{
     width: 8px;
     height: 175px;
     padding: 0 5px;
+}
+
+.row{
+    align-items: flex-end;
 }
 
 

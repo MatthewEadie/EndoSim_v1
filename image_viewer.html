@@ -106,127 +106,168 @@
         <div class="toolbar">
             <ul>
                 <li>
-                    <input type="checkbox" id="checkPoint">
+                    <input class="checkBox" type="checkbox" id="checkPoint">
                     <label onclick="pause()" for="checkPoint" class="fa fa-mouse-pointer"></label>
                 </li>
                 <li>
-                    <input type="checkbox" id="checkMove">
+                    <input class="checkBox" type="checkbox" id="checkMove">
                     <label onclick="toggleMove()" for="checkMove" class="fa fa-arrows"></label>
                 </li>
                 <li>
-                    <input type="checkbox" id="checkMag">
+                    <input class="checkBox" type="checkbox" id="checkMag">
                     <label onclick="toggleMagnify()" for="checkMag" class="fa fa-search"></label>
                 </li>
                 <li>
-                    <input type="checkbox" id="checkDraw">
+                    <input class="checkBox" type="checkbox" id="checkDraw">
                     <label onclick="draw_annotation()" for="checkDraw" class="fa fa-pencil"></label>
                 </li>
                 <li>
-                    <input type="checkbox" id="checkPlaceAnnotation">
+                    <input class="checkBox" type="checkbox" id="checkPlaceAnnotation">
                     <label onclick="togglePlaceAnnotation()" for="checkPlaceAnnotation" class="fa fa-font"></label>
                 </li>
             </ul>
 
-            <div class="tab float-right">
+            <div class="tab">
                 <button class="tablinks" onclick="openTab(event, 'annotation_settings')">Annotation Settings</button>
                 <button class="tablinks" onclick="openTab(event, 'image_settings')">Image Settings</button>
                 <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Magnify Settings</button>
                 <button class="tablinks" onclick="openTab(event, 'draw_settings')">Drawing Settings</button>
             </div>
-        </div>
 
-
-    </div>
-
-    <div id="annotation_settings" class="tabcontent">
-        <p>Input annotation text</p>
-        <input type="text" id="annotationTextBox">
-    </div>
-
-    <div id="image_settings" class="tabcontent">
-        <div class="image_settings">
-            <div class="enhancement_method">
-                <ul>
-                    <li>
-                        <input type="radio" name="enhance_method" id="Normal" checked onclick="load_HR_image()">None 
-                        <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
-                    </li>
-                    <li>
-                        <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
-                        <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
-                    </li>
+            <div id="annotation_settings" class="tabcontent annotation">
+                <!-- NEEDS CODE ADDED -->
+                <p>Input annotation text</p>
+                <input type="text" id="annotationTextBox">
         
-                </ul>
+                <!-- Text Settings -->
+                <p>Font</p>
+                <select name="" id="">
+                    <option value="">Default</option>
+                </select>
+        
+                <p>Font size</p>
+                <input type="number">
+        
+                <p>Text colour</p>
+                <input type="color">
+                
+        
+        
+                <!-- Shape settings -->
+                <p>Shape</p>
+                <div class="row">
+                    <button>Square</button>
+                    <button>Circle</button>
+                </div>
+        
+                <p>Shape Size</p>
+                <input type="number">
+        
+                <p>Shape Color</p>
+                <input type="color">
+        
+                <!--
+                    Font
+                    Font size
+                    Text colour
+        
+                    Shape
+                    Shape size
+                    Shape colour
+                -->
             </div>
         
-            <div class="contrast_sliders">
-                <li>
-                    <input type="range" orient="vertical" />
-                    <input type="range" orient="vertical" />
-                </li>
-            </div>    
+            <div id="image_settings" class="tabcontent image">
+                <div class="image_settings">
+                    <div class="enhancement_method">
+                        <ul>
+                            <li>
+                                <input type="radio" name="enhance_method" id="Normal" checked onclick="load_HR_image()">None 
+                                <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
+                            </li>
+                            <li>
+                                <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
+                                <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
+                            </li>
+                
+                        </ul>
+                    </div>
+                
+                    <div class="contrast_sliders">
+                        <li>
+                            <input type="range" orient="vertical" />
+                            <input type="range" orient="vertical" />
+                        </li>
+                    </div>    
+                </div>
+            </div>
+        
+            <div id="magnify_settings" class="tabcontent magnify">
+                <div class="slider_container">
+                    <ul>
+                        <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="200" class="slider" onchange="zoomSize_changed()"></li>
+                        <label for="zoomSize">Zoom size: <span id="zoomSizeValue"></span></label>
+        
+                        <li><input id="magAmount" type="range" min="2" max="10" value="2" class="slider" onchange="magAmount_changed()"></li>
+                        <label for="magAmount">Magnification: <span id="magValue"></span></label>
+                    </ul>
+                </div>
+            </div>
+        
+            <div id="draw_settings" class="tabcontent draw">
+                <div class="draw_container">
+                    <div class="colors">
+                        <button type="button" value="#0000ff"></button>
+                        <button type="button" value="#009fff"></button>
+                        <button type="button" value="#0fffff"></button>
+                        <button type="button" value="#bfffff"></button>
+                        <button type="button" value="#000000"></button>
+                        <button type="button" value="#333333"></button>
+                        <button type="button" value="#666666"></button>
+                        <button type="button" value="#999999"></button>
+                        <button type="button" value="#ffcc66"></button>
+                        <button type="button" value="#ffcc00"></button>
+                        <button type="button" value="#ffff00"></button>
+                        <button type="button" value="#ffff99"></button>
+                        <button type="button" value="#003300"></button>
+                        <button type="button" value="#555000"></button>
+                        <button type="button" value="#00ff00"></button>
+                        <button type="button" value="#99ff99"></button>
+                        <button type="button" value="#f00000"></button>
+                        <button type="button" value="#ff6600"></button>
+                        <button type="button" value="#ff9933"></button>
+                        <button type="button" value="#f5deb3"></button>
+                        <button type="button" value="#330000"></button>
+                        <button type="button" value="#663300"></button>
+                        <button type="button" value="#cc6600"></button>
+                        <button type="button" value="#deb887"></button>
+                        <button type="button" value="#aa0fff"></button>
+                        <button type="button" value="#cc66cc"></button>
+                        <button type="button" value="#ff66ff"></button>
+                        <button type="button" value="#ff99ff"></button>
+                        <button type="button" value="#e8c4e8"></button>
+                        <button type="button" value="#ffffff"></button>
+                    </div>
+                    <div class="brushes">
+                        <button type="button" value="1"></button>
+                        <button type="button" value="2"></button>
+                        <button type="button" value="3"></button>
+                        <button type="button" value="4"></button>
+                        <button type="button" value="5"></button>
+                    </div>
+                    <div class="draw_buttons">
+                        <button id="clear" type="button">Clear</button>
+                        <button id="save" type="button">Save</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
     </div>
 
-    <div id="magnify_settings" class="tabcontent">
-        <div class="slider_container">
-            <ul>
-                <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="200" class="slider" onchange="zoomSize_changed()"></li>
-                <label for="zoomSize">Zoom size: <span id="zoomSizeValue"></span></label>
 
-                <li><input id="magAmount" type="range" min="2" max="10" value="2" class="slider" onchange="magAmount_changed()"></li>
-                <label for="magAmount">Magnification: <span id="magValue"></span></label>
-            </ul>
-        </div>
-    </div>
-
-    <div id="draw_settings" class="tabcontent">
-        <div class="draw_container">
-            <div class="colors">
-                <button type="button" value="#0000ff"></button>
-                <button type="button" value="#009fff"></button>
-                <button type="button" value="#0fffff"></button>
-                <button type="button" value="#bfffff"></button>
-                <button type="button" value="#000000"></button>
-                <button type="button" value="#333333"></button>
-                <button type="button" value="#666666"></button>
-                <button type="button" value="#999999"></button>
-                <button type="button" value="#ffcc66"></button>
-                <button type="button" value="#ffcc00"></button>
-                <button type="button" value="#ffff00"></button>
-                <button type="button" value="#ffff99"></button>
-                <button type="button" value="#003300"></button>
-                <button type="button" value="#555000"></button>
-                <button type="button" value="#00ff00"></button>
-                <button type="button" value="#99ff99"></button>
-                <button type="button" value="#f00000"></button>
-                <button type="button" value="#ff6600"></button>
-                <button type="button" value="#ff9933"></button>
-                <button type="button" value="#f5deb3"></button>
-                <button type="button" value="#330000"></button>
-                <button type="button" value="#663300"></button>
-                <button type="button" value="#cc6600"></button>
-                <button type="button" value="#deb887"></button>
-                <button type="button" value="#aa0fff"></button>
-                <button type="button" value="#cc66cc"></button>
-                <button type="button" value="#ff66ff"></button>
-                <button type="button" value="#ff99ff"></button>
-                <button type="button" value="#e8c4e8"></button>
-                <button type="button" value="#ffffff"></button>
-            </div>
-            <div class="brushes">
-                <button type="button" value="1"></button>
-                <button type="button" value="2"></button>
-                <button type="button" value="3"></button>
-                <button type="button" value="4"></button>
-                <button type="button" value="5"></button>
-            </div>
-            <div class="draw_buttons">
-                <button id="clear" type="button">Clear</button>
-                <button id="save" type="button">Save</button>
-            </div>
-        </div>
-    </div>
 
     <script src="new_mag.js"></script>
     
