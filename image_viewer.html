@@ -16,7 +16,7 @@
 
     <div class="menubar">
         <ul>
-            <li onclick="displayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li>
+            <li onclick="toggleDisplayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li>
             <li class="active"><a href="../index.html">Home</a></li>
             <li><a href="#">About Us</a>
                 <div class="about-sub-menu">
@@ -38,8 +38,14 @@
     </div>
 
     <script>
-        function displayDataset(){
+        function toggleDisplayDataset(){
+            const col_dataset = document.getElementById("col-dataset")
             //get width of col-dataset
+            if(col_dataset.style.display != "none"){
+                col_dataset.style.display = "none";
+            } else {
+                col_dataset.style.display = "block";
+            }
             //if col-dataset > 0 
             //set to 0
             //else
@@ -48,7 +54,10 @@
     </script>
 
     <div class="image_viewer_screen">
-        <div class="col-dataset">
+
+
+
+        <div class="col-dataset" id="col-dataset">
             <nav>
             <ul>
                 <li onclick="changeImage('1')">
@@ -93,6 +102,30 @@
                         <p>Image 7</p>
                     </div>
                 </li>
+                <li onclick="changeImage('8')">
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image8_HR.png">
+                        <p>Image 7</p>
+                    </div>
+                </li>
+                <li onclick="changeImage('9')">
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image9_HR.png">
+                        <p>Image 7</p>
+                    </div>
+                </li>
+                <li onclick="changeImage('10')">
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image10_HR.png">
+                        <p>Image 7</p>
+                    </div>
+                </li>
+                <li onclick="changeImage('11')">
+                    <div class="dataset_thumbnail">
+                        <img src="images/dataset1/Image11_HR.png">
+                        <p>Image 7</p>
+                    </div>
+                </li>
             </ul>
         </nav>
         </div>
@@ -128,18 +161,19 @@
             </ul>
 
             <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'annotation_settings')">Annotation Settings</button>
-                <button class="tablinks" onclick="openTab(event, 'image_settings')">Image Settings</button>
-                <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Magnify Settings</button>
-                <button class="tablinks" onclick="openTab(event, 'draw_settings')">Drawing Settings</button>
+                <button class="tablinks" onclick="openTab(event, 'annotation_settings')">Annotate</button>
+                <button class="tablinks" onclick="openTab(event, 'image_settings')">Image</button>
+                <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Compare</button>
+                <button class="tablinks" onclick="openTab(event, 'draw_settings')">Draw</button>
             </div>
 
             <div id="annotation_settings" class="tabcontent annotation">
                 <!-- NEEDS CODE ADDED -->
-                <p>Input annotation text</p>
-                <input type="text" id="annotationTextBox">
+                <p>Annotation text</p>
+                <input type="text" id="annotationTextBox" class="annotationTextBox">
         
                 <!-- Text Settings -->
+                <hr>
                 <p>Font</p>
                 <select name="" id="">
                     <option value="">Default</option>
@@ -152,19 +186,30 @@
                 <input type="color">
                 
         
-        
+                <hr>
                 <!-- Shape settings -->
                 <p>Shape</p>
                 <div class="row">
-                    <button>Square</button>
-                    <button>Circle</button>
+                    <input class="checkBox" type="checkbox" id="checkAnnotationSquare">
+                    <label onclick="pause()" for="checkPoint" class="annotation-shape fa fa-square-o"></label>
+
+                    <input class="checkBox" type="checkbox" id="checkAnnotationCircle">
+                    <label onclick="pause()" for="checkPoint" class="annotation-shape fa fa-circle-o"></label>
                 </div>
         
                 <p>Shape Size</p>
-                <input type="number">
+                <input type="number" id="annotationShapeSize" value="10">
         
                 <p>Shape Color</p>
-                <input type="color">
+                <input type="color" id="annotationShapeColor">
+
+                <hr>
+
+                <div class="annotation_container">
+                    <ol id="annotation_list">
+                    </ol>
+                </div>
+                    
         
                 <!--
                     Font

@@ -334,6 +334,7 @@ function draw_annotation() {
 
 function togglePlaceAnnotation(){
     var checkPlaceAnno = document.getElementById("checkPlaceAnnotation");
+    alert("annotation")
     if (!checkPlaceAnno.checked) {
         canvas.addEventListener('mousedown', placeAnnotation)
     } else {
@@ -352,11 +353,23 @@ function placeAnnotation(e){
     ctx.fillText(text,e.x,e.y); 
 
     //place circle at position of mouse
+    const annotationShapeColor = document.getElementById("annotationShapeColor")
+    var shapeColor = annotationShapeColor.value //Get text from textbox
+
+    const annotationShapeSize = document.getElementById("annotationShapeSize")
+    var shapeSize = annotationShapeSize.value //Get text from textbox
+    
     ctx.lineWidth = 4;
-    ctx.strokeStyle = 'pink';
+    ctx.strokeStyle = shapeColor;
     ctx.beginPath();
-    ctx.arc(e.x, e.y+10, 10, 0, 2 * Math.PI);
+    ctx.arc(e.x, e.y+10, shapeSize, 0, 2 * Math.PI);
     ctx.stroke();
+
+    
+    var ul = document.getElementById("annotation_list");
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(text));
+    ul.appendChild(li);
 }
 
 
