@@ -83,6 +83,35 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
   }
 
+function changeFilter(){
+    sliderContrast = document.getElementById("sliderContrast");
+    sliderBrightness = document.getElementById("sliderBrightness");
+
+    canvas.style.setProperty('filter',`contrast(${sliderContrast.value}%) brightness(${sliderBrightness.value}%)`)
+  }
+
+function noiseLevel(){
+    sliderNoise = document.getElementById("sliderNoise");
+
+    opacity = sliderNoise.value/100
+
+
+    alert(canvas.width)
+
+    ctx = canvas.getContext('2d'),
+    x, y,
+    number,
+    opacity = opacity || .2;
+  
+    for ( x = 0; x < canvas.width; x++ ) {
+        for ( y = 0; y < canvas.height; y++ ) {
+            number = Math.floor( Math.random() * 60 );
+
+            ctx.fillStyle = "rgba(" + number + "," + number + "," + number + "," + opacity + ")";
+            ctx.fillRect(x, y, 1, 1);
+        }
+    }
+}
 
 function draw()
 {
@@ -346,23 +375,23 @@ function placeAnnotation(e){
     const textBox = document.getElementById("annotationTextBox")
     var text = textBox.value //Get text from textbox
 
-    //place text at position of mouse
-    ctx.fillStyle="#990000";
-    ctx.font="30px futura";
-    ctx.textBaseline="top";
-    ctx.fillText(text,e.x,e.y); 
-
-    //place circle at position of mouse
     const annotationShapeColor = document.getElementById("annotationShapeColor")
     var shapeColor = annotationShapeColor.value //Get text from textbox
 
     const annotationShapeSize = document.getElementById("annotationShapeSize")
-    var shapeSize = annotationShapeSize.value //Get text from textbox
-    
+    var shapeRadius = annotationShapeSize.value //Get text from textbox
+
+    //place text at position of mouse
+    ctx.fillStyle="#990000";
+    ctx.font="30px futura";
+    ctx.textBaseline="top";
+    ctx.fillText(text,e.x+shapeRadius,e.y+shapeRadius); 
+
+    //place circle at position of mouse    
     ctx.lineWidth = 4;
     ctx.strokeStyle = shapeColor;
     ctx.beginPath();
-    ctx.arc(e.x, e.y+10, shapeSize, 0, 2 * Math.PI);
+    ctx.arc(e.x, e.y+10, shapeRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
     

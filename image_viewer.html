@@ -228,10 +228,14 @@
                         <ul>
                             <li>
                                 <input type="radio" name="enhance_method" id="Normal" checked onclick="load_HR_image()">None 
+                            </li>
+                            <li>
                                 <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
                             </li>
                             <li>
                                 <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
+                            </li>
+                            <li>
                                 <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
                             </li>
                 
@@ -240,8 +244,18 @@
                 
                     <div class="contrast_sliders">
                         <li>
-                            <input type="range" orient="vertical" />
-                            <input type="range" orient="vertical" />
+                            <input type="range" orient="vertical" id="sliderContrast" oninput="changeFilter()" onchange="changeFilter()"
+                                min="0" max="1000" value="100"/>
+                                <label for="sliderContrast">contrast 100%</label>
+
+                            <input type="range" orient="vertical" id="sliderBrightness" oninput="changeFilter()" onchange="changeFilter()"
+                                min="0" max="1000" value="100"/>
+                                <label for="sliderBrightness">Brightness 100%</label>
+                        </li>
+                        <li>
+                            <input type="range" orient="vertical" id="sliderNoise" oninput="noiseLevel()" onchange="noiseLevel()"
+                                min="0" max="100" value="0"/>
+                                <label for="sliderNoise">Noise 100%</label>
                         </li>
                     </div>    
                 </div>
