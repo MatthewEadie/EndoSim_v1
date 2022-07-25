@@ -191,10 +191,10 @@
                 <p>Shape</p>
                 <div class="row">
                     <input class="checkBox" type="checkbox" id="checkAnnotationSquare">
-                    <label onclick="pause()" for="checkPoint" class="annotation-shape fa fa-square-o"></label>
+                    <label onclick="" for="checkPoint" class="annotation-shape fa fa-square-o"></label>
 
                     <input class="checkBox" type="checkbox" id="checkAnnotationCircle">
-                    <label onclick="pause()" for="checkPoint" class="annotation-shape fa fa-circle-o"></label>
+                    <label onclick="" for="checkPoint" class="annotation-shape fa fa-circle-o"></label>
                 </div>
         
                 <p>Shape Size</p>
@@ -223,25 +223,8 @@
             </div>
         
             <div id="image_settings" class="tabcontent image">
-                <div class="image_settings">
-                    <div class="enhancement_method">
-                        <ul>
-                            <li>
-                                <input type="radio" name="enhance_method" id="Normal" checked onclick="load_HR_image()">None 
-                            </li>
-                            <li>
-                                <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
-                            </li>
-                            <li>
-                                <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
-                            </li>
-                            <li>
-                                <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
-                            </li>
-                
-                        </ul>
-                    </div>
-                
+                <div class="image_settings">  
+                    <button onclick="resetFilter()">reset</button>              
                     <div class="contrast_sliders">
                         <li>
                             <input type="range" orient="vertical" id="sliderContrast" oninput="changeFilter()" onchange="changeFilter()"
@@ -262,15 +245,44 @@
             </div>
         
             <div id="magnify_settings" class="tabcontent magnify">
+                <div class="enhancement_method">
+                    <ul>
+                        <li>
+                            <input type="radio" name="enhance_method" id="Normal" checked onclick="load_HR_image()">None 
+                        </li>
+                        <li>
+                            <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
+                        </li>
+                        <li>
+                            <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
+                        </li>
+                        <li>
+                            <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
+                        </li>
+            
+                    </ul>
+                </div>
+
+                <p>Shape</p>
+                <div class="row">
+                    <btn onclick="comparisonSquare()" for="checkPoint" class="annotation-shape fa fa-square-o"></btn>
+
+                    <btn onclick="comparisonCircle()" for="checkPoint" class="annotation-shape fa fa-circle-o"></btn>
+                </div>
+
+                <br>
+
                 <div class="slider_container">
                     <ul>
                         <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="200" class="slider" onchange="zoomSize_changed()"></li>
-                        <label for="zoomSize">Zoom size: <span id="zoomSizeValue"></span></label>
+                        <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
         
-                        <li><input id="magAmount" type="range" min="2" max="10" value="2" class="slider" onchange="magAmount_changed()"></li>
-                        <label for="magAmount">Magnification: <span id="magValue"></span></label>
+                        <!-- <li><input id="magAmount" type="range" min="2" max="10" value="2" class="slider" onchange="magAmount_changed()"></li>
+                        <label for="magAmount">Magnification: <span id="magValue"></span></label> -->
                     </ul>
                 </div>
+
+                
             </div>
         
             <div id="draw_settings" class="tabcontent draw">

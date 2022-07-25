@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>Hello OpenCV.js</title> 
+</head>
+<body>
+    <h2>Hello OpenCV.js</h2>
+    <p id="status">OpenCV.js is loading...</p>
+
+    <div>
+        <div class="inputoutput">
+            <img id="imageSrc" alt="No Image" />
+            <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+        </div>
+
+        <div class="inputoutput">
+            <canvas id="canvasOutput" ></canvas>
+            <div class="caption">canvasOutput</div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function openCVReady(){
+            cv['onRuntimeInitialized']=()=>{
+
+                alert('OpenCV Initialised')
+
+                let imgElement = document.getElementById('imageSrc');
+                let inputElement = document.getElementById('fileInput');
+
+                // let dst = new cv.Mat([10,10],cv.CV_8UC3);
+                let dst = new cv.Mat();
+
+                inputElement.addEventListener('change', (e) => {
+                imgElement.src = URL.createObjectURL(e.target.files[0]);
+                }, false);
+
+                imgElement.onload = function() {
+                let src = cv.imread(imgElement);
+
+                cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+
+                cv.imshow('canvasOutput', dst);
+                
+                src.delete();
+                dst.delete();
+                };
+            };
+        }
+
+    </script>
+    <script src="opencv4.6.0.js" onload="openCVReady()" type="text/javascript"></script>
+</body>
+</html>

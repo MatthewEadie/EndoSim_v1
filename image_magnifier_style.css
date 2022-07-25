@@ -1,4 +1,4 @@
-#zoom{
+/* #zoom{
   border:1px black solid;
   box-shadow: 5px 5px 10px #1e1e1e;
 }
@@ -13,6 +13,6 @@
   position: absolute;
   border: 3px solid #000;
   /* border-radius: 50%; */
-  cursor: none;
+  /* cursor: none;
   z-index: 10;
-}
+} */ 

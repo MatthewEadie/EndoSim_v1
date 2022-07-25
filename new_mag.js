@@ -4,7 +4,7 @@ let ctx = canvas.getContext('2d')
 
 
 const zoomCanvas = document.getElementById("compareCanvas");
-zoomCanvas.setAttribute("class", "img-magnifier-glass");
+// zoomCanvas.setAttribute("class", "img-magnifier-glass");
 let zoomCtx = zoomCanvas.getContext("2d");
 
 let v_pause = true
@@ -28,8 +28,8 @@ compImage.src = dataset_location + 'image' + image_number + '_HR.png';;
 let zoomSlider = document.getElementById("zoomSize");
 let zoomOutput = document.getElementById("zoomSizeValue");
 
-let magSlider = document.getElementById("magAmount");
-let magOutput = document.getElementById("magValue");
+// let magSlider = document.getElementById("magAmount");
+// let magOutput = document.getElementById("magValue");
 
 zoomOutput.innerHTML = zoomSlider.value;
 zoomSlider.oninput = function() {
@@ -38,10 +38,10 @@ zoomSlider.oninput = function() {
     zoomCanvas.height=this.value
 }
 
-magOutput.innerHTML = magSlider.value;
-magSlider.oninput = function() {
-    magOutput.innerHTML = this.value;
-}
+// magOutput.innerHTML = magSlider.value;
+// magSlider.oninput = function() {
+//     magOutput.innerHTML = this.value;
+// }
 
 
 function load_HR_image(){
@@ -87,8 +87,18 @@ function changeFilter(){
     sliderContrast = document.getElementById("sliderContrast");
     sliderBrightness = document.getElementById("sliderBrightness");
 
-    canvas.style.setProperty('filter',`contrast(${sliderContrast.value}%) brightness(${sliderBrightness.value}%)`)
+    zoomCanvas.style.setProperty('filter',`contrast(${sliderContrast.value}%) brightness(${sliderBrightness.value}%)`)
   }
+
+function resetFilter(){
+    sliderContrast = document.getElementById("sliderContrast");
+    sliderBrightness = document.getElementById("sliderBrightness");
+
+    zoomCanvas.style.setProperty('filter',`contrast(100%) brightness(100%)`)
+
+    sliderContrast.value=100
+    sliderBrightness.value=100
+}
 
 function noiseLevel(){
     sliderNoise = document.getElementById("sliderNoise");
@@ -419,6 +429,14 @@ function cursorMag(e){
 
 function cursorOut(e){
     zoomCanvas.style.display = "none";
+}
+
+function comparisonCircle(){
+    zoomCanvas.style.setProperty('border-radius',`50%`)
+}
+
+function comparisonSquare(){
+    zoomCanvas.style.setProperty('border-radius',`0%`)
 }
 
 
