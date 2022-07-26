@@ -1,42 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EndoSim Homepage</title>
-    <link rel="stylesheet" href="style.css">
+<style>
+
+.mask1 {
+  -webkit-mask-image: image(url(Mask256_0.png),skyblue);
+  mask-image: image(url(Mask256_0.png), skyblue);
+  -webkit-mask-size: 70%;
+  mask-size: 70%;
+
+  mask-image: inherit;
+
+  /* -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;     */
+}
+
+img{
+    border: 2px solid rgb(0, 0, 0);
+}
+.col3{
+    display: inline-block;
+}
+
+</style>
 </head>
 <body>
 
-<img src="images/dataset1/image11_SR.png" id="img1">
-<img src="Mask256_0.png" id="img2">
-<p>Blended image<br><canvas id="canvas"></canvas></p>
-<script>
-    window.onload = function () {
-        var img1 = document.getElementById('img1');
-        var img2 = document.getElementById('img2');
-        var canvas = document.getElementById("canvas");
-        var context = canvas.getContext("2d");
-        var width = img1.width;
-        var height = img1.height;
-        canvas.width = width;
-        canvas.height = height;
+<h1>The mask-image Property</h1>
 
-        var pixels = 4 * width * height;
-        context.drawImage(img1, 0, 0);
-        var image1 = context.getImageData(0, 0, width, height);
-        var imageData1 = image1.data;
-        context.drawImage(img2, 0, 0);
-        var image2 = context.getImageData(0, 0, width, height);
-        var imageData2 = image2.data;
-        while (pixels--) {
-            imageData1[pixels] = imageData1[pixels] *0.5 + imageData2[pixels] *0.5;
-        }
-        image1.data = imageData1;
-        context.putImageData(image1, 0, 0);
-    };
-</script>
+<div class="row">
+    <div class="col3">
+        <h3>Mask image:</h3>
+        <img src="./Mask256_0.png" alt="Cinque Terre" width="256" height="256">
+    </div>
+    <div class="col3">
+        <h3>Original image:</h3>
+        <img src="./images/dataset1/image11_HR.png" alt="Cinque Terre" width="256" height="256">
+    </div>
+    <div class="col3">
+        <h3>An image with a mask layer image:</h3>
+        <div class="mask1">
+        <img src="./images/dataset1/image11_HR.png" alt="Cinque Terre" width="256" height="256">
+    </div>
+</div>
+
+
+
+
+
+
+</div>
 
 </body>
 </html>

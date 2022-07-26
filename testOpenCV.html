@@ -8,6 +8,10 @@
     <h2>Hello OpenCV.js</h2>
     <p id="status">OpenCV.js is loading...</p>
 
+    <div class="inputoutput">
+        <img id="imageFbr" src="./Mask256_0.png"/>
+    </div>
+
     <div>
         <div class="inputoutput">
             <img id="imageSrc" alt="No Image" />
@@ -23,10 +27,8 @@
     <script type="text/javascript">
         function openCVReady(){
             cv['onRuntimeInitialized']=()=>{
-
-                alert('OpenCV Initialised')
-
                 let imgElement = document.getElementById('imageSrc');
+                let imgFibre = document.getElementById('imageFbr');
                 let inputElement = document.getElementById('fileInput');
 
                 // let dst = new cv.Mat([10,10],cv.CV_8UC3);
@@ -38,8 +40,10 @@
 
                 imgElement.onload = function() {
                 let src = cv.imread(imgElement);
+                let fbr = cv.imread(imgFibre);
 
-                cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+                dst = cv.gemm(src,fbr)
+                
 
                 cv.imshow('canvasOutput', dst);
                 
