@@ -8,6 +8,7 @@ const zoomCanvas = document.getElementById("compareCanvas");
 let zoomCtx = zoomCanvas.getContext("2d");
 
 let v_pause = true
+let fibre = false;
 
 let cameraOffset = { x: 200, y: 125 }
 let cameraZoom = 1
@@ -44,8 +45,17 @@ zoomSlider.oninput = function() {
 // }
 
 
-function load_HR_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+function load_Fibre_image(){
+    //draw HR image
+    // compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+    //get image data
+    //apply mask
+
+
+
+    zoomCanvas.classList.add('mask1')
+    fibre = true;
+
     draw()
 }
 
@@ -414,17 +424,23 @@ function placeAnnotation(e){
 
 
 function cursorMag(e){
-    zoomCtx.fillStyle = "white";
+    zoomCtx.fillStyle = "black";
 
-    // var mag = document.getElementById("magAmount");
 
     zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
-    zoomCtx.drawImage(compImage, e.x-300, e.y-200, 1480, 720, 0,0, 1480, 720);
 
-    // console.log(zoom.style);
+    if (!fibre) {
+        zoomCtx.drawImage(compImage, e.x-300, e.y-200, 1480, 720, 0,0, 1480, 720);
+    } else {
+        zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
+    }
+
+
+
     zoomCanvas.style.top = e.pageY + 10 + "px"
     zoomCanvas.style.left = e.pageX + 10 + "px"
     zoomCanvas.style.display = "block";
+
 }
 
 function cursorOut(e){

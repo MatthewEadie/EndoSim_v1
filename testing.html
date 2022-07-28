@@ -3,21 +3,6 @@
 <head>
 <style>
 
-.mask1 {
-  -webkit-mask-image: image(url(Mask256_0.png),skyblue);
-  mask-image: image(url(Mask256_0.png), skyblue);
-  -webkit-mask-size: 70%;
-  mask-size: 70%;
-
-  mask-image: inherit;
-
-  /* -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;     */
-}
-
-img{
-    border: 2px solid rgb(0, 0, 0);
-}
 .col3{
     display: inline-block;
 }
@@ -31,25 +16,122 @@ img{
 <div class="row">
     <div class="col3">
         <h3>Mask image:</h3>
-        <img src="./Mask256_0.png" alt="Cinque Terre" width="256" height="256">
+        <canvas class="fibreCanvas" id="fibreCanvas" width="256" height="256"></canvas>
     </div>
     <div class="col3">
         <h3>Original image:</h3>
-        <img src="./images/dataset1/image11_HR.png" alt="Cinque Terre" width="256" height="256">
+        <canvas class="slideCanvas" id="slideCanvas" width="256" height="256"></canvas>
     </div>
     <div class="col3">
         <h3>An image with a mask layer image:</h3>
-        <div class="mask1">
-        <img src="./images/dataset1/image11_HR.png" alt="Cinque Terre" width="256" height="256">
+        <canvas class="altcanvas" id="altcanvas" width="256" height="256"></canvas>
     </div>
 </div>
 
 
+<form>
+    <input type="radio" id="original" name="color" value="original" checked>
+    <label for="original">Original</label>
+
+    <input type="radio" id="inverted" name="color" value="inverted">
+    <label for="inverted">Inverted</label>
+
+    <input type="radio" id="overlay" name="color" value="overlay">
+    <label for="overlay">Overlay</label>  
+
+</form>
 
 
-
-
-</div>
 
 </body>
+
+
+
+<script>
+
+    const slideCanvas = document.getElementById("slideCanvas")
+    let slideCTX = slideCanvas.getContext('2d')
+
+    var fibreCanvas = document.getElementById("fibreCanvas")
+    let fibreCTX = fibreCanvas.getContext('2d')
+
+    var altcanvas = document.getElementById("altcanvas")
+    let altctx = altcanvas.getContext('2d')
+
+
+    var image = new Image()
+    image.src = "./images/dataset1/image11_HR.png";
+
+    var fibre = new Image()
+    fibre.crossOrigin = 'anonymous';
+    fibre.src = "./Mask256_0.png";
+
+    image.onload = function(){
+        slideCTX.drawImage(image,0,0,slideCanvas.width,slideCanvas.height)
+    }
+
+    fibre.onload = function(){
+        fibreCTX.drawImage(fibre,0,0)
+        altctx.drawImage(fibre,0,0)
+    }
+
+
+    var original = function() {
+        altctx.drawImage(fibre, 0, 0);
+    };
+
+    var invert = function() {
+        altctx.drawImage(fibre, 0, 0);
+        const imageData = altctx.getImageData(0, 0, altcanvas.width, altcanvas.height);
+        const data = imageData.data;
+        for (var i = 0; i < data.length; i += 4) {
+            data[i]     = 255 - data[i];     // red
+            data[i + 1] = 255 - data[i + 1]; // green
+            data[i + 2] = 255 - data[i + 2]; // blue
+        }
+        altctx.putImageData(imageData, 0, 0);
+    };
+
+
+    function overlay(){
+        altctx.drawImage(fibre, 0, 0,altcanvas.width, altcanvas.height);
+        const fibreData = altctx.getImageData(0, 0, altcanvas.width, altcanvas.height);
+        const fdata = fibreData.data;
+
+        altctx.drawImage(image, 0, 0,altcanvas.width, altcanvas.height);
+        const imageData = altctx.getImageData(0, 0, altcanvas.width, altcanvas.height);
+        const data = imageData.data;
+
+        for (var i = 0; i < fdata.length; i += 4) {
+            fdata[i]     = (data[i] * fdata[i]) /255;     // red
+            fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
+            fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
+        }
+        altctx.putImageData(fibreData, 0, 0);
+    };
+
+
+
+const inputs = document.querySelectorAll('[name=color]');
+for (const input of inputs) {
+	input.addEventListener("change", function(evt) {
+		switch (evt.target.value) {
+			case "inverted":
+                console.log('inverted')
+				return invert();
+			case "overlay":
+				return overlay();
+			default:
+				return original();
+		}
+	});
+}
+    
+
+    
+</script>
+
+
+
+
 </html>

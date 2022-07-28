@@ -124,6 +124,17 @@ nav ul li{
     display:none;
 }
 
+.mask1 {
+    -webkit-mask-image: url(mask2.png);
+    mask-image: url(mask2.png);
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;    
+    border-radius: 50%;
+    background-color: #000;
+  }
+
 
 .toolbar{
     /* position: fixed; */
