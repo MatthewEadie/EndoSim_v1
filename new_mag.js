@@ -24,7 +24,10 @@ var image = new Image()
 image.src = dataset_location + 'image' + image_number + '_HR.png';
 
 var compImage = new Image()
-compImage.src = dataset_location + 'image' + image_number + '_HR.png';;
+compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+
+var fibreImage = new Image()
+fibreImage.src = "./Mask256_0.png";
 
 let zoomSlider = document.getElementById("zoomSize");
 let zoomOutput = document.getElementById("zoomSizeValue");
@@ -53,7 +56,6 @@ function load_Fibre_image(){
 
 
 
-    zoomCanvas.classList.add('mask1')
     fibre = true;
 
     draw()
@@ -61,16 +63,19 @@ function load_Fibre_image(){
 
 function load_Linear_image(){
     compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
+    fibre = false;
     draw()
 }
 
 function load_Gaussian_image(){
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+    fibre = false;
     draw()
 }
 
 function load_SR_image(){
     compImage.src = dataset_location + 'image' + image_number + '_SR.png';
+    fibre = false;
     draw()
 }
 
@@ -424,15 +429,33 @@ function placeAnnotation(e){
 
 
 function cursorMag(e){
+    canvas.width = 1480 //window.innerWidth
+    canvas.height = 720 //window.innerHeight
+
     zoomCtx.fillStyle = "black";
 
 
     zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
 
-    if (!fibre) {
+    if (fibre) {
+        zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
+        const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+        const fdata = fibreData.data;
+
+        // zoomCtx.drawImage(image, 0, 0,zoomCanvas.width, zoomCanvas.height);
         zoomCtx.drawImage(compImage, e.x-300, e.y-200, 1480, 720, 0,0, 1480, 720);
+        const imageData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+        const data = imageData.data;
+
+        for (var i = 0; i < fdata.length; i += 4) {
+            fdata[i]     = (data[i] * fdata[i]) /255;     // red
+            fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
+            fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
+        }
+        zoomCtx.putImageData(fibreData, 0, 0);
     } else {
-        zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
+        zoomCtx.drawImage(compImage, 0, 0, canvas.width,canvas.height, 0, 0, canvas.width,canvas.height);
+        
     }
 
 
