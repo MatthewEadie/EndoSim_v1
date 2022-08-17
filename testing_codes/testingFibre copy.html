@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <style>
+    *{margin:0;}
+    canvas{background:#ddd;}
+    #picked span{
+    display:inline-block;
+    width:50px;
+    height:50px;
+    margin:3px;
+    text-align:center;
+    text-shadow:1px 1px 1px #000;
+    font:8px/50px Arial;
+    color:#fff;
+    }
+
+    .compareCanvas{
+    /* border-radius: 50%; */
+    position:absolute;
+    /* border: 3px solid #000; */
+    /* top:0;  */
+    /* left:100;  */
+    /* filter: contrast(100%) brightness(100%); */
+    }
+
+    .menubar{
+    background: #323338;
+    text-align: left;
+}
+
+.menubar ul{
+    display: inline-flex;
+    list-style: none;
+    color: #fff;
+}
+
+.menubar ul li{
+    /* width: 120px; */
+    margin: 15px;
+    padding: 15px;
+}
+
+.menubar ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.active, .menubar ul li:hover{
+    background: #242425;
+    border-radius: 3px;
+}
+
+.about-sub-menu{
+    display: none;
+}
+
+.menubar ul li:hover .about-sub-menu{
+    display: block;
+    position: absolute;
+    background: #323338;
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
+.menubar ul li:hover .about-sub-menu ul{
+    display: block;
+    margin: 10px;
+}
+
+.menubar ul li:hover .about-sub-menu ul li{
+    width: 150px;
+    padding: 10px;
+    border-bottom: 1px dotted #fff;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+  </style>
+  <title>Fibre bundle </title>
+</head>
+<body>
+
+<div class="menubar" id="menubar">
+  <ul>
+      <li onclick="toggleDisplayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li>
+      <li class="active"><a href="../index.html">Home</a></li>
+      <li><a href="#">About Us</a>
+          <div class="about-sub-menu">
+              <ul>
+                  <li><a href="#">Mission</a></li>
+                  <li><a href="#">Vision</a></li>
+                  <li><a href="#">Team</a></li>
+              </ul>
+          </div>
+      </li>
+
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Clients</a></li>
+      <li><a href="#">Investors</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Training</a></li>
+      <li><a href="#">Content</a></li>
+  </ul>
+</div>
+  
+<input type="file" id="file_upload">
+<canvas width="600" height="300" id="canvas_picker"></canvas>
+<canvas class="compareCanvas" width="256" height="256" id="compare_canvas"></canvas>
+<div id="hex">HEX: <input type="text"></div>
+<div id="rgb">RGB: <input type="text"></div>
+
+<div id="picked"></div>
+  
+</body>
+
+<script>
+    var menu = document.getElementById('menubar')
+
+    var $picked = document.getElementById("picked"); // Just to preview picked colors
+    var canvas = document.getElementById('canvas_picker');
+    var context = canvas.getContext('2d');
+
+    var compare = document.getElementById('compare_canvas');
+    var comCTX = compare.getContext('2d');
+
+    var upload = document.getElementById('file_upload')
+    upload.addEventListener('change', updateImage)
+
+
+    function updateImage(e) {
+    var F = this.files[0];
+    var reader = new FileReader();
+    reader.onload = imageIsLoaded;
+    reader.readAsDataURL(F);  
+    };
+
+    function imageIsLoaded(e) {
+    var img = new Image();
+    img.onload = function(){
+        canvas.width  = this.width;
+        canvas.height = this.height;
+        context.drawImage(this, 0, 0);
+    };
+    img.src = e.target.result;
+    }
+
+    // canvas.addEventListener('mousemove', displayColour)
+    canvas.addEventListener('mousemove', displayImage)
+    canvas.addEventListener('click', addColour)
+
+    function displayColour(event){
+        var x = event.pageX - $(this).offset().left;
+        var y = event.pageY - $(this).offset().top;
+        var imageData = context.getImageData(x,y,1,1).data;
+        rgbaColor = 'rgba(' + imageData[0] + ',' + imageData[1] + ',' + imageData[2] + ',1)';
+        comCTX.fillStyle = rgbaColor
+        comCTX.fillRect(0,0, compare.width, compare.height);
+        $('#rgb input').val( rgbaColor );
+    }
+
+
+    function displayImage(event){
+        var x = event.pageX - $(this).offset().left;
+        var y = event.pageY - $(this).offset().top - menu.offsetHeight;
+
+
+        var imageData = context.getImageData(x+10, y+10,compare.width, compare.height);
+        comCTX.putImageData(imageData, 0, 0);
+
+        compare.style.top = y + 10 + "px"
+        compare.style.left = x + compare.width + 10 + "px"
+        // compare.style.display = "block";
+    }
+
+
+    function addColour(event){
+        var x = event.pageX - $(this).offset().left;
+        var y = event.pageY - $(this).offset().top;
+        var img_data = context.getImageData(x,y , 1, 1).data;
+        var R = img_data[0];
+        var G = img_data[1];
+        var B = img_data[2]; 
+        var rgb = R + ',' + G + ',' + B ;
+        var hex = rgbToHex(R,G,B);
+        $picked.append("<span style='background:#"+hex+"'>#"+hex+"</span>");
+    }
+
+    function rgbToHex(R, G, B) {
+    return toHex(R) + toHex(G) + toHex(B);
+    }
+
+    function toHex(n) {
+    n = parseInt(n, 10);
+    if (isNaN(n))  return "00";
+    n = Math.max(0, Math.min(n, 255));
+    return "0123456789ABCDEF".charAt((n - n % 16) / 16)  + "0123456789ABCDEF".charAt(n % 16);
+    }
+  
+  </script>
+</html>

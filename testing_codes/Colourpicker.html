@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <style>
+    *{margin:0;}
+    canvas{background:#ddd;}
+    #picked span{
+    display:inline-block;
+    width:50px;
+    height:50px;
+    margin:3px;
+    text-align:center;
+    text-shadow:1px 1px 1px #000;
+    font:8px/50px Arial;
+    color:#fff;
+    }
+  </style>
+  <title>JS Bin</title>
+</head>
+<body>
+  
+<input type="file" id="file_upload">
+<canvas width="600" height="300" id="canvas_picker"></canvas>
+<div id="hex">HEX: <input type="text"></div>
+<div id="rgb">RGB: <input type="text"></div>
+
+<div id="picked"></div>
+  
+</body>
+
+<script>
+    var $picked = $("#picked"); // Just to preview picked colors
+    var canvas = $('#canvas_picker')[0];
+    var context = canvas.getContext('2d');
+
+
+    $("#file_upload").change(function (e) {
+    var F = this.files[0];
+    var reader = new FileReader();
+    reader.onload = imageIsLoaded;
+    reader.readAsDataURL(F);  
+    });
+
+    function imageIsLoaded(e) {
+    var img = new Image();
+    img.onload = function(){
+        canvas.width  = this.width;
+        canvas.height = this.height;
+        context.drawImage(this, 0, 0);
+    };
+    img.src = e.target.result;
+    }
+
+    $('#canvas_picker').click(function(event){
+    var x = event.pageX - $(this).offset().left;
+    var y = event.pageY - $(this).offset().top;
+    var img_data = context.getImageData(x,y , 1, 1).data;
+    alert(img_data)
+    var R = img_data[0];
+    var G = img_data[1];
+    var B = img_data[2]; 
+    var rgb = R + ',' + G + ',' + B ;
+    var hex = rgbToHex(R,G,B);
+    $('#rgb input').val( rgb );
+    $('#hex input').val('#' + hex);
+    $picked.append("<span style='background:#"+hex+"'>#"+hex+"</span>");
+    });
+
+    function rgbToHex(R, G, B) {
+    return toHex(R) + toHex(G) + toHex(B);
+    }
+
+    function toHex(n) {
+    n = parseInt(n, 10);
+    if (isNaN(n))  return "00";
+    n = Math.max(0, Math.min(n, 255));
+    return "0123456789ABCDEF".charAt((n - n % 16) / 16)  + "0123456789ABCDEF".charAt(n % 16);
+    }
+  </script>
+</html>

@@ -131,9 +131,12 @@
         </div>
         
 
-        <div class="Canvas">
-            <canvas class="mainCanvas" id="mainCanvas" width="2048" height="1080"></canvas>
-            <canvas class="compareCanvas" id="compareCanvas" width="200" height="200" style="display:none;"></canvas>            
+        <div class="Canvas" id="Canvas">
+            <canvas class="mainCanvas" id="mainCanvas"></canvas>
+            <canvas class="compareCanvas" id="compareCanvas" width="256" height="256" style="display:none;"></canvas>   
+            <label for="Canvas" style="color:white">Hex:<span id="canvasSpan">blue</span></label>       
+            <br>  
+            <label for="Canvas">X:<span id="canvasX"></span> Y:<span id="canvasY"></span></label>         
         </div>
 
         <div class="toolbar">
@@ -274,7 +277,7 @@
 
                 <div class="slider_container">
                     <ul>
-                        <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="200" class="slider" onchange="zoomSize_changed()"></li>
+                        <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="256" class="slider" onchange="zoomSize_changed()"></li>
                         <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
         
                         <!-- <li><input id="magAmount" type="range" min="2" max="10" value="2" class="slider" onchange="magAmount_changed()"></li>

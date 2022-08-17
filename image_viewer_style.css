@@ -113,18 +113,16 @@ nav ul li{
     /* filter: brightness(100%); */
 }
 .compareCanvas{
-    width: 200;
-    height: 200;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     position:absolute;
-    /* border: 3px solid #000; */
+    border: 3px solid #000;
     /* top:0;  */
     /* left:100;  */
-    filter: contrast(100%) brightness(100%);
+    /* filter: contrast(100%) brightness(100%); */
     display:none;
 }
 
-.mask1 {
+/* .mask1 {
     -webkit-mask-image: url(mask2.png);
     mask-image: url(mask2.png);
     -webkit-mask-size: 100%;
@@ -133,7 +131,7 @@ nav ul li{
     mask-repeat: no-repeat;    
     border-radius: 50%;
     background-color: #000;
-  }
+  } */
 
 
 .toolbar{

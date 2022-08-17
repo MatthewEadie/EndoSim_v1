@@ -10,7 +10,7 @@ let zoomCtx = zoomCanvas.getContext("2d");
 let v_pause = true
 let fibre = false;
 
-let cameraOffset = { x: 200, y: 125 }
+// let cameraOffset = { x: 200, y: 125 }
 let cameraZoom = 1
 let MAX_ZOOM = 5
 let MIN_ZOOM = 0.1
@@ -21,7 +21,13 @@ var dataset_location = "./images/dataset1/"
 var image_number = 11
 
 var image = new Image()
+image.onload = function(){
+    canvas.width  = this.width;
+    canvas.height = this.height;
+    canvas.drawImage(this,0,0)
+}
 image.src = dataset_location + 'image' + image_number + '_HR.png';
+
 
 var compImage = new Image()
 compImage.src = dataset_location + 'image' + image_number + '_HR.png';
@@ -32,9 +38,6 @@ fibreImage.src = "./Mask256_0.png";
 let zoomSlider = document.getElementById("zoomSize");
 let zoomOutput = document.getElementById("zoomSizeValue");
 
-// let magSlider = document.getElementById("magAmount");
-// let magOutput = document.getElementById("magValue");
-
 zoomOutput.innerHTML = zoomSlider.value;
 zoomSlider.oninput = function() {
     zoomOutput.innerHTML = this.value;
@@ -42,22 +45,9 @@ zoomSlider.oninput = function() {
     zoomCanvas.height=this.value
 }
 
-// magOutput.innerHTML = magSlider.value;
-// magSlider.oninput = function() {
-//     magOutput.innerHTML = this.value;
-// }
-
 
 function load_Fibre_image(){
-    //draw HR image
-    // compImage.src = dataset_location + 'image' + image_number + '_HR.png';
-    //get image data
-    //apply mask
-
-
-
     fibre = true;
-
     draw()
 }
 
@@ -121,7 +111,6 @@ function noiseLevel(){
     opacity = sliderNoise.value/100
 
 
-    alert(canvas.width)
 
     ctx = canvas.getContext('2d'),
     x, y,
@@ -140,20 +129,19 @@ function noiseLevel(){
 
 function draw()
 {
-    canvas.width = 1480 //window.innerWidth
-    canvas.height = 720 //window.innerHeight
+    // canvas.width  = 1480;
+    // canvas.height = 720;
     
     // Translate to the canvas centre before zooming - so you'll always zoom on what you're looking directly at
-    ctx.translate( canvas.width / 2, canvas.height / 2 )
-    ctx.scale(cameraZoom, cameraZoom)
-    ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y )
-    ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
+    // ctx.translate( canvas.width / 2, canvas.height / 2 )
+    // ctx.scale(cameraZoom, cameraZoom)
+    // ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y )
+    // ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
 
-    ctx.drawImage(image,0,0,canvas.width,canvas.height)
+    ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
     
     if (v_pause) {
         requestAnimationFrame( draw )
-        console.log('draw')
     }
 }
 
@@ -302,93 +290,92 @@ function toggleMove(){
 //Code for eraser for later
 
 //https://codepen.io/alperentalaslioglu/pen/yPGgvP
-function draw_annotation() {
-    // Definitions
-    var boundings = canvas.getBoundingClientRect();
+// function draw_annotation() {
+//     // Definitions
+//     var boundings = canvas.getBoundingClientRect();
   
-    // Specifications
-    var mouseX = 0;
-    var mouseY = 0;
-    ctx.strokeStyle = 'black'; // initial brush color
-    ctx.lineWidth = 1; // initial brush width
-    var isDrawing = false;
+//     // Specifications
+//     var mouseX = 0;
+//     var mouseY = 0;
+//     ctx.strokeStyle = 'black'; // initial brush color
+//     ctx.lineWidth = 1; // initial brush width
+//     var isDrawing = false;
   
   
-    // Handle Colors
-    var colors = document.getElementsByClassName('colors')[0];
+//     // Handle Colors
+//     var colors = document.getElementsByClassName('colors')[0];
   
-    colors.addEventListener('click', function(event) {
-      ctx.strokeStyle = event.target.value || 'black';
-    });
+//     colors.addEventListener('click', function(event) {
+//       ctx.strokeStyle = event.target.value || 'black';
+//     });
   
-    // Handle Brushes
-    var brushes = document.getElementsByClassName('brushes')[0];
+//     // Handle Brushes
+//     var brushes = document.getElementsByClassName('brushes')[0];
   
-    brushes.addEventListener('click', function(event) {
-      ctx.lineWidth = event.target.value || 1;
-    });
+//     brushes.addEventListener('click', function(event) {
+//       ctx.lineWidth = event.target.value || 1;
+//     });
   
-    // Mouse Down Event
-    canvas.addEventListener('mousedown', function(event) {
-      setMouseCoordinates(event);
+//     // Mouse Down Event
+//     canvas.addEventListener('mousedown', function(event) {
+//       setMouseCoordinates(event);
 
-      isDrawing = true;
+//       isDrawing = true;
   
-      // Start Drawing
-      ctx.beginPath();
-      ctx.moveTo(mouseX, mouseY);
-    });
+//       // Start Drawing
+//       ctx.beginPath();
+//       ctx.moveTo(mouseX, mouseY);
+//     });
   
-    // Mouse Move Event
-    canvas.addEventListener('mousemove', function(event) {
-      setMouseCoordinates(event);
+//     // Mouse Move Event
+//     canvas.addEventListener('mousemove', function(event) {
+//       setMouseCoordinates(event);
   
-      if(isDrawing){
-        ctx.lineTo(mouseX, mouseY);
-        ctx.stroke();
-      }
-    });
+//       if(isDrawing){
+//         ctx.lineTo(mouseX, mouseY);
+//         ctx.stroke();
+//       }
+//     });
   
-    // Mouse Up Event
-    canvas.addEventListener('mouseup', function(event) {
-      setMouseCoordinates(event);
-      isDrawing = false;
-    });
+//     // Mouse Up Event
+//     canvas.addEventListener('mouseup', function(event) {
+//       setMouseCoordinates(event);
+//       isDrawing = false;
+//     });
   
-    // Handle Mouse Coordinates
-    function setMouseCoordinates(e) {
-    //   mouseX = event.clientX/cameraZoom - cameraOffset.x //+ boundings.left; ///cameraZoom
-    //   mouseY = event.clientY/cameraZoom - cameraOffset.y //+ boundings.top;
+//     // Handle Mouse Coordinates
+//     function setMouseCoordinates(e) {
+//     //   mouseX = event.clientX/cameraZoom - cameraOffset.x //+ boundings.left; ///cameraZoom
+//     //   mouseY = event.clientY/cameraZoom - cameraOffset.y //+ boundings.top;
 
-      mouseX = getEventLocation(e).x- cameraOffset.x/cameraZoom //cameraZoom
-      mouseY = getEventLocation(e).y- cameraOffset.y/cameraZoom
+//       mouseX = getEventLocation(e).x- cameraOffset.x/cameraZoom //cameraZoom
+//       mouseY = getEventLocation(e).y- cameraOffset.y/cameraZoom
 
-    }
+//     }
   
-    // Handle Clear Button
-    var clearButton = document.getElementById('clear');
+//     // Handle Clear Button
+//     var clearButton = document.getElementById('clear');
   
-    clearButton.addEventListener('click', function() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
+//     clearButton.addEventListener('click', function() {
+//       ctx.clearRect(0, 0, canvas.width, canvas.height);
+//     });
   
-    // Handle Save Button
-    var saveButton = document.getElementById('save');
+//     // Handle Save Button
+//     var saveButton = document.getElementById('save');
   
-    saveButton.addEventListener('click', function() {
-      var imageName = prompt('Please enter image name');
-      var canvasDataURL = canvas.toDataURL();
-      var a = document.createElement('a');
-      a.href = canvasDataURL;
-      a.download = imageName || 'drawing';
-      a.click();
-    });
-  };
+//     saveButton.addEventListener('click', function() {
+//       var imageName = prompt('Please enter image name');
+//       var canvasDataURL = canvas.toDataURL();
+//       var a = document.createElement('a');
+//       a.href = canvasDataURL;
+//       a.download = imageName || 'drawing';
+//       a.click();
+//     });
+//   };
 
 
 function togglePlaceAnnotation(){
     var checkPlaceAnno = document.getElementById("checkPlaceAnnotation");
-    alert("annotation")
     if (!checkPlaceAnno.checked) {
         canvas.addEventListener('mousedown', placeAnnotation)
     } else {
@@ -429,34 +416,95 @@ function placeAnnotation(e){
 
 
 function cursorMag(e){
-    canvas.width = 1480 //window.innerWidth
-    canvas.height = 720 //window.innerHeight
+    var span = document.getElementById("canvasSpan");
+    var spanX = document.getElementById("canvasX");
+    var spanY = document.getElementById("canvasY");
 
-    zoomCtx.fillStyle = "black";
+    // var a, x = 0, y = 0;
+    // e = e || window.event;
+    // /*get the x and y positions of the image:*/
+    // a = canvas.getBoundingClientRect();
+    // /*calculate the cursor's x and y coordinates, relative to the image:*/
+    // x = e.pageX - a.left;
+    // y = e.pageY - a.top;
+    // /*consider any page scrolling:*/
+    // x = x - window.pageXOffset;
+    // y = y - window.pageYOffset;
 
 
+    x=e.x
+    y=e.y
+
+    // x = getEventLocation(e).x
+    // y = getEventLocation(e).y
+
+    
+
+    // alert(x,y)
+
+    var image = ctx.getImageData(x+10, y+10, zoomCanvas.width, zoomCanvas.height);
+    var imageData = image.data;
+
+    rgbaColor = 'rgba(' + imageData[0] + ',' + imageData[1] + ',' + imageData[2] + ',1)';
+
+    zoomCtx.fillStyle = rgbaColor
     zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
 
-    if (fibre) {
-        zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
-        const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
-        const fdata = fibreData.data;
+    // // alert(rgbaColor)
 
-        // zoomCtx.drawImage(image, 0, 0,zoomCanvas.width, zoomCanvas.height);
-        zoomCtx.drawImage(compImage, e.x-300, e.y-200, 1480, 720, 0,0, 1480, 720);
-        const imageData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
-        const data = imageData.data;
+    span.innerHTML = rgbaColor
+    span.style.background = rgbaColor
+    spanX.innerHTML = x
+    spanY.innerHTML = y
 
-        for (var i = 0; i < fdata.length; i += 4) {
-            fdata[i]     = (data[i] * fdata[i]) /255;     // red
-            fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
-            fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
-        }
-        zoomCtx.putImageData(fibreData, 0, 0);
-    } else {
-        zoomCtx.drawImage(compImage, 0, 0, canvas.width,canvas.height, 0, 0, canvas.width,canvas.height);
+
+    zoomCtx.putImageData(image, 0, 0);
+
+
+    // alert('ping')
+
+    // zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
+
+    // if (fibre) {
+    //     zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
+    //     const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+    //     const fdata = fibreData.data;
+
+    //     // zoomCtx.drawImage(image, 0, 0,zoomCanvas.width, zoomCanvas.height);
+    //     zoomCtx.drawImage(compImage, x, y, 1480, 720, 0,0, 1480, 720);
+    //     const imageData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+    //     const data = imageData.data;
+
+    //     for (var i = 0; i < fdata.length; i += 4) {
+    //         fdata[i]     = (data[i] * fdata[i]) /255;     // red
+    //         fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
+    //         fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
+    //     }
         
-    }
+    //     zoomCtx.putImageData(fibreData, 0, 0);
+    // } else {
+    //     zoomCtx.drawImage(compImage, x, y, 2048,1080, 0, 0, 2048,1080);
+        
+    // }
+
+
+    // NOISE SLIDER EMELEMTN
+    // sliderNoise = document.getElementById("sliderNoise");
+    // opacity = sliderNoise.value/100
+    // ctx = canvas.getContext('2d'),
+    // x, y,
+    // number,
+    // opacity = opacity || .2;
+  
+    // for ( x = 0; x < canvas.width; x++ ) {
+    //     for ( y = 0; y < canvas.height; y++ ) {
+    //         number = Math.floor( Math.random() * 60 );
+
+    //         ctx.fillStyle = "rgba(" + number + "," + number + "," + number + "," + opacity + ")";
+    //         ctx.fillRect(x, y, 1, 1);
+    //     }
+    // }
+    // END SLIDER ELEMENT
 
 
 
