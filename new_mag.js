@@ -7,6 +7,9 @@ const zoomCanvas = document.getElementById("compareCanvas");
 // zoomCanvas.setAttribute("class", "img-magnifier-glass");
 let zoomCtx = zoomCanvas.getContext("2d");
 
+var menu = document.getElementById('menubar')
+var datasets = document.getElementById('col-dataset')
+
 let v_pause = true
 let fibre = false;
 
@@ -24,7 +27,8 @@ var image = new Image()
 image.onload = function(){
     canvas.width  = this.width;
     canvas.height = this.height;
-    canvas.drawImage(this,0,0)
+
+    // canvas.drawImage(image,0,0)
 }
 image.src = dataset_location + 'image' + image_number + '_HR.png';
 
@@ -432,8 +436,8 @@ function cursorMag(e){
     // y = y - window.pageYOffset;
 
 
-    x=e.x
-    y=e.y
+    x= e.pageX 
+    y= e.pageY 
 
     // x = getEventLocation(e).x
     // y = getEventLocation(e).y
@@ -442,13 +446,13 @@ function cursorMag(e){
 
     // alert(x,y)
 
-    var image = ctx.getImageData(x+10, y+10, zoomCanvas.width, zoomCanvas.height);
+    var image = ctx.getImageData(x+10 + datasets.offsetWidth + 40, y+10 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height);
     var imageData = image.data;
 
     rgbaColor = 'rgba(' + imageData[0] + ',' + imageData[1] + ',' + imageData[2] + ',1)';
 
-    zoomCtx.fillStyle = rgbaColor
-    zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
+    // zoomCtx.fillStyle = rgbaColor
+    // zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
 
     // // alert(rgbaColor)
 
