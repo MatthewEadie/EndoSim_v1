@@ -85,7 +85,7 @@
         var y = event.pageY - $(this).offset().top;
 
 
-        var imageData = context.getImageData(x-compare.width/2, y-compare.height/2,compare.width, compare.height);
+        var imageData = context.getImageData(x-compare.width+10, y+10,compare.width, compare.height);
         comCTX.putImageData(imageData, 0, 0);
 
         compare.style.top = y + 10 + "px"

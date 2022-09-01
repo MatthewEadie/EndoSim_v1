@@ -9,9 +9,13 @@ let zoomCtx = zoomCanvas.getContext("2d");
 
 var menu = document.getElementById('menubar')
 var datasets = document.getElementById('col-dataset')
+var thumbnail = document.getElementById('thumbnail')
+
 
 let v_pause = true
 let fibre = false;
+let gaussian = false;
+var gaussianAmount = 0
 
 // let cameraOffset = { x: 200, y: 125 }
 let cameraZoom = 1
@@ -23,17 +27,22 @@ let SCROLL_SENSITIVITY = 0.0005
 var dataset_location = "./images/dataset1/"
 var image_number = 11
 
-var image = new Image()
+var image = new Image(this.naturalWidth, this.naturalWidth)
 image.onload = function(){
-    canvas.width  = this.width;
-    canvas.height = this.height;
+    // canvas.width  = this.naturalWidth;
+    // canvas.height = this.naturalHeight;
 
-    // canvas.drawImage(image,0,0)
+    canvas.drawImage(image,0,0)
 }
 image.src = dataset_location + 'image' + image_number + '_HR.png';
 
 
-var compImage = new Image()
+
+
+var compImage = new Image(this.naturalWidth, this.naturalWidth)
+compImage.onload = function(){
+    zoomCanvas.drawImage(compImage,0,0)
+}
 compImage.src = dataset_location + 'image' + image_number + '_HR.png';
 
 var fibreImage = new Image()
@@ -52,24 +61,28 @@ zoomSlider.oninput = function() {
 
 function load_Fibre_image(){
     fibre = true;
+    gaussian = false;
     draw()
 }
 
 function load_Linear_image(){
     compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
     fibre = false;
+    gaussian = false;
     draw()
 }
 
 function load_Gaussian_image(){
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
-    fibre = false;
+    fibre = true;
+    gaussian = true;
     draw()
 }
 
 function load_SR_image(){
     compImage.src = dataset_location + 'image' + image_number + '_SR.png';
     fibre = false;
+    gaussian = false;
     draw()
 }
 
@@ -418,38 +431,31 @@ function placeAnnotation(e){
 }
 
 
+function gaussianAmount_changed(){
+    //get slider value
+    gaussianAmount = document.getElementById("gaussianAmount").value
+
+    //Set span text ot blur strength
+    gaussianSpan = document.getElementById("gaussianValue")
+    gaussianSpan.textContent = `${gaussianAmount}`
+}
+
 
 function cursorMag(e){
     var span = document.getElementById("canvasSpan");
     var spanX = document.getElementById("canvasX");
     var spanY = document.getElementById("canvasY");
 
-    // var a, x = 0, y = 0;
-    // e = e || window.event;
-    // /*get the x and y positions of the image:*/
-    // a = canvas.getBoundingClientRect();
-    // /*calculate the cursor's x and y coordinates, relative to the image:*/
-    // x = e.pageX - a.left;
-    // y = e.pageY - a.top;
-    // /*consider any page scrolling:*/
-    // x = x - window.pageXOffset;
-    // y = y - window.pageYOffset;
-
 
     x= e.pageX 
     y= e.pageY 
-
-    // x = getEventLocation(e).x
-    // y = getEventLocation(e).y
-
-    
-
-    // alert(x,y)
 
     var image = ctx.getImageData(x+10 + datasets.offsetWidth + 40, y+10 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height);
     var imageData = image.data;
 
     rgbaColor = 'rgba(' + imageData[0] + ',' + imageData[1] + ',' + imageData[2] + ',1)';
+
+    // alert(zoomCanvas.naturalWidth)
 
     // zoomCtx.fillStyle = rgbaColor
     // zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
@@ -467,29 +473,33 @@ function cursorMag(e){
 
     // alert('ping')
 
-    // zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
+    zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
 
-    // if (fibre) {
-    //     zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
-    //     const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
-    //     const fdata = fibreData.data;
+    if (fibre) {
+        zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
+        const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+        const fdata = fibreData.data;
 
-    //     // zoomCtx.drawImage(image, 0, 0,zoomCanvas.width, zoomCanvas.height);
-    //     zoomCtx.drawImage(compImage, x, y, 1480, 720, 0,0, 1480, 720);
-    //     const imageData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
-    //     const data = imageData.data;
+        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth, y+10 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
+        const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
+        const data = imageData.data;
 
-    //     for (var i = 0; i < fdata.length; i += 4) {
-    //         fdata[i]     = (data[i] * fdata[i]) /255;     // red
-    //         fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
-    //         fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
-    //     }
+        for (var i = 0; i < fdata.length; i += 4) {
+            fdata[i]     = (data[i] * fdata[i]) /255;     // red
+            fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
+            fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
+        }
         
-    //     zoomCtx.putImageData(fibreData, 0, 0);
-    // } else {
-    //     zoomCtx.drawImage(compImage, x, y, 2048,1080, 0, 0, 2048,1080);
+        zoomCtx.putImageData(fibreData, 0, 0);
+
+        if (gaussian) {
+            zoomCtx.filter = `blur(${gaussianAmount}px)`;
+        }
+    } else {
+        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +20, y+10 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
+        zoomCtx.filter = 'blur(0px)';
         
-    // }
+    }
 
 
     // NOISE SLIDER EMELEMTN

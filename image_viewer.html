@@ -61,7 +61,7 @@
             <nav>
             <ul>
                 <li onclick="changeImage('1')">
-                    <div class="dataset_thumbnail">
+                    <div class="dataset_thumbnail" id="thumbnail">
                         <img src="images/dataset1/Image1_HR.png">
                         <p>Image 1</p>
                     </div>
@@ -132,7 +132,7 @@
         
 
         <div class="Canvas" id="Canvas">
-            <canvas class="mainCanvas" id="mainCanvas"></canvas>
+            <canvas class="mainCanvas" id="mainCanvas" width="1480" height="720"></canvas>
             <canvas class="compareCanvas" id="compareCanvas" width="256" height="256" style="display:none;"></canvas>   
             <label for="Canvas" style="color:white">Hex:<span id="canvasSpan">blue</span></label>       
             <br>  
@@ -280,8 +280,8 @@
                         <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="256" class="slider" onchange="zoomSize_changed()"></li>
                         <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
         
-                        <!-- <li><input id="magAmount" type="range" min="2" max="10" value="2" class="slider" onchange="magAmount_changed()"></li>
-                        <label for="magAmount">Magnification: <span id="magValue"></span></label> -->
+                        <li><input id="gaussianAmount" type="range" min="0" max="10" value="0" class="slider" oninput="gaussianAmount_changed()"></li>
+                        <label for="magAmount">Gaussian blur: <span id="gaussianValue">0</span>px</label>
                     </ul>
                 </div>
 
