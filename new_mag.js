@@ -29,8 +29,8 @@ var image_number = 11
 
 var image = new Image(this.naturalWidth, this.naturalWidth)
 image.onload = function(){
-    // canvas.width  = this.naturalWidth;
-    // canvas.height = this.naturalHeight;
+    canvas.width  = this.naturalWidth;
+    canvas.height = this.naturalHeight;
 
     canvas.drawImage(image,0,0)
 }
@@ -109,17 +109,28 @@ function changeFilter(){
     sliderContrast = document.getElementById("sliderContrast");
     sliderBrightness = document.getElementById("sliderBrightness");
 
+    contrastSpan = document.getElementById("lblContrastValue");
+    brightnessSpan = document.getElementById("lblBrightnessValue");
+
     zoomCanvas.style.setProperty('filter',`contrast(${sliderContrast.value}%) brightness(${sliderBrightness.value}%)`)
+    contrastSpan.innerHTML = `${sliderContrast.value}`
+    brightnessSpan.innerHTML = `${sliderBrightness.value}`
   }
 
 function resetFilter(){
     sliderContrast = document.getElementById("sliderContrast");
     sliderBrightness = document.getElementById("sliderBrightness");
 
+    contrastSpan = document.getElementById("lblContrastValue");
+    brightnessSpan = document.getElementById("lblBrightnessValue");
+
     zoomCanvas.style.setProperty('filter',`contrast(100%) brightness(100%)`)
 
     sliderContrast.value=100
     sliderBrightness.value=100
+
+    contrastSpan.innerHTML = `${sliderContrast.value}`
+    brightnessSpan.innerHTML = `${sliderBrightness.value}`
 }
 
 function noiseLevel(){
@@ -480,7 +491,7 @@ function cursorMag(e){
         const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
         const fdata = fibreData.data;
 
-        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth, y+10 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
+        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
         const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
         const data = imageData.data;
 
@@ -496,7 +507,7 @@ function cursorMag(e){
             zoomCtx.filter = `blur(${gaussianAmount}px)`;
         }
     } else {
-        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +20, y+10 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
+        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
         zoomCtx.filter = 'blur(0px)';
         
     }

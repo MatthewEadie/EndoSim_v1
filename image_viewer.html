@@ -132,7 +132,7 @@
         
 
         <div class="Canvas" id="Canvas">
-            <canvas class="mainCanvas" id="mainCanvas" width="1480" height="720"></canvas>
+            <canvas class="mainCanvas" id="mainCanvas" width="1280" height="547"></canvas>
             <canvas class="compareCanvas" id="compareCanvas" width="256" height="256" style="display:none;"></canvas>   
             <label for="Canvas" style="color:white">Hex:<span id="canvasSpan">blue</span></label>       
             <br>  
@@ -231,18 +231,18 @@
                     <div class="contrast_sliders">
                         <li>
                             <input type="range" orient="vertical" id="sliderContrast" oninput="changeFilter()" onchange="changeFilter()"
-                                min="0" max="1000" value="100"/>
-                                <label for="sliderContrast">contrast 100%</label>
+                                min="0" max="200" value="100"/>
+                                <label for="sliderContrast">contrast <span id="lblContrastValue">100</span>%</label>
 
                             <input type="range" orient="vertical" id="sliderBrightness" oninput="changeFilter()" onchange="changeFilter()"
-                                min="0" max="1000" value="100"/>
-                                <label for="sliderBrightness">Brightness 100%</label>
+                                min="0" max="200" value="100"/>
+                                <label for="sliderBrightness">Brightness <span id="lblBrightnessValue">100</span>%</label>
                         </li>
-                        <li>
+                        <!-- <li>
                             <input type="range" orient="vertical" id="sliderNoise" oninput="noiseLevel()" onchange="noiseLevel()"
                                 min="0" max="100" value="0"/>
                                 <label for="sliderNoise">Noise 100%</label>
-                        </li>
+                        </li> -->
                     </div>    
                 </div>
             </div>
