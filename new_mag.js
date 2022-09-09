@@ -60,6 +60,7 @@ zoomSlider.oninput = function() {
 
 
 function load_Fibre_image(){
+    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
     fibre = true;
     gaussian = false;
     draw()
@@ -69,6 +70,8 @@ function load_Linear_image(){
     compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
     fibre = false;
     gaussian = false;
+
+    
     draw()
 }
 
@@ -87,8 +90,9 @@ function load_SR_image(){
 }
 
 function changeImage(imgNo){
-    image.src = dataset_location + 'image' + imgNo + '_HR.png';
-    compImage.src = dataset_location + 'image' + imgNo + '_HR.png';
+    image_number = imgNo
+    image.src = dataset_location + 'image' + image_number + '_HR.png';
+    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
 }
 
 function openTab(evt, tabName) {
@@ -505,6 +509,8 @@ function cursorMag(e){
 
         if (gaussian) {
             zoomCtx.filter = `blur(${gaussianAmount}px)`;
+        } else {
+            zoomCtx.filter = `blur(${0}px)`;
         }
     } else {
         zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
