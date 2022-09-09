@@ -227,6 +227,11 @@
         
             <div id="image_settings" class="tabcontent image">
                 <div class="image_settings">  
+                    <input type="checkbox" id="checkTissueBkg" onclick="toggleTissueBkg(this);" checked>
+                    <label for="checkTissueBkg">Show background tissue</label>
+
+                    <br>
+
                     <button onclick="resetFilter()">reset</button>              
                     <div class="contrast_sliders">
                         <li>
@@ -268,9 +273,8 @@
 
                 <p>Shape</p>
                 <div class="row">
-                    <btn onclick="comparisonSquare()" for="checkPoint" class="annotation-shape fa fa-square-o"></btn>
-
-                    <btn onclick="comparisonCircle()" for="checkPoint" class="annotation-shape fa fa-circle-o"></btn>
+                    <btn onclick="comparisonSquare()" class="annotation-shape fa fa-square-o"></btn>
+                    <btn onclick="comparisonCircle()" class="annotation-shape fa fa-circle-o"></btn>
                 </div>
 
                 <br>

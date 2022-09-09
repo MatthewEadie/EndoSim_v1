@@ -16,6 +16,7 @@ let v_pause = true
 let fibre = false;
 let gaussian = false;
 var gaussianAmount = 0
+var showTissue = true
 
 // let cameraOffset = { x: 200, y: 125 }
 let cameraZoom = 1
@@ -58,17 +59,21 @@ zoomSlider.oninput = function() {
     zoomCanvas.height=this.value
 }
 
+var preblur = false
 
 function load_Fibre_image(){
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
     fibre = true;
+    preblur = true
     gaussian = false;
+
     draw()
 }
 
 function load_Linear_image(){
     compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
     fibre = false;
+    preblur = false;
     gaussian = false;
 
     
@@ -78,6 +83,7 @@ function load_Linear_image(){
 function load_Gaussian_image(){
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
     fibre = true;
+    preblur = false;
     gaussian = true;
     draw()
 }
@@ -85,6 +91,7 @@ function load_Gaussian_image(){
 function load_SR_image(){
     compImage.src = dataset_location + 'image' + image_number + '_SR.png';
     fibre = false;
+    preblur = false;
     gaussian = false;
     draw()
 }
@@ -159,6 +166,7 @@ function noiseLevel(){
     }
 }
 
+
 function draw()
 {
     // canvas.width  = 1480;
@@ -170,7 +178,13 @@ function draw()
     // ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y )
     // ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
 
-    ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
+    if(showTissue){
+        ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
+    } else {
+        ctx.rect(0,0,canvas.width, canvas.height)
+        ctx.fillStyle = "grey"
+        ctx.fill()
+    }
     
     if (v_pause) {
         requestAnimationFrame( draw )
@@ -491,27 +505,59 @@ function cursorMag(e){
     zoomCtx.fillRect(0,0, zoomCanvas.width, zoomCanvas.height);
 
     if (fibre) {
-        zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
-        const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
-        const fdata = fibreData.data;
 
-        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
-        const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
-        const data = imageData.data;
 
-        for (var i = 0; i < fdata.length; i += 4) {
-            fdata[i]     = (data[i] * fdata[i]) /255;     // red
-            fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
-            fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
-        }
         
-        zoomCtx.putImageData(fibreData, 0, 0);
 
+        
+
+        if(preblur){
+
+            zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
+            const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+            const fdata = fibreData.data;
+
+            zoomCtx.filter = `blur(${5}px)`;
+
+            zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
+            const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
+            const data = imageData.data;
+
+            for (var i = 0; i < fdata.length; i += 4) {
+                fdata[i]     = (data[i] * fdata[i]) /255;     // red
+                fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
+                fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
+            }
+            
+            zoomCtx.putImageData(fibreData, 0, 0);
+
+        }
+
+
+
+        
         if (gaussian) {
+
+            zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
+            const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
+            const data = imageData.data;
+
+            zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
+            const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+            const fdata = fibreData.data;
+
+            for (var i = 0; i < fdata.length; i += 4) {
+                fdata[i]     = (data[i] * fdata[i]) /255;     // red
+                fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
+                fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
+            }
+            
+            zoomCtx.putImageData(fibreData, 0, 0);
             zoomCtx.filter = `blur(${gaussianAmount}px)`;
         } else {
             zoomCtx.filter = `blur(${0}px)`;
         }
+
     } else {
         zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
         zoomCtx.filter = 'blur(0px)';
@@ -543,6 +589,12 @@ function cursorMag(e){
     zoomCanvas.style.left = e.pageX + 10 + "px"
     zoomCanvas.style.display = "block";
 
+}
+
+
+function toggleTissueBkg(cb){
+    showTissue = cb.checked
+    console.log(cb.checked)
 }
 
 function cursorOut(e){
