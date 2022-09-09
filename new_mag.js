@@ -461,7 +461,7 @@ function cursorMag(e){
     x= e.pageX 
     y= e.pageY 
 
-    var image = ctx.getImageData(x+10 + datasets.offsetWidth + 40, y+10 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height);
+    var image = ctx.getImageData(x - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height);
     var imageData = image.data;
 
     rgbaColor = 'rgba(' + imageData[0] + ',' + imageData[1] + ',' + imageData[2] + ',1)';
