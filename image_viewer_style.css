@@ -7,21 +7,21 @@
 
 body {
     overflow: hidden;
-    background-color: #5a5b5e;
+    background-color: #FFFAF5;
     height: 100%;
 }
 
 
 
 .menubar{
-    background: #323338;
+    background: #4365e2;
     text-align: left;
 }
 
 .menubar ul{
     display: inline-flex;
     list-style: none;
-    color: #fff;
+    color: #FFFAF5;
 }
 
 .menubar ul li{
@@ -36,7 +36,7 @@ body {
 }
 
 .active, .menubar ul li:hover{
-    background: #242425;
+    background: #2649CA;
     border-radius: 3px;
 }
 
@@ -47,9 +47,13 @@ body {
 .menubar ul li:hover .about-sub-menu{
     display: block;
     position: absolute;
-    background: #323338;
+    background: #646464;
     margin-top: 15px;
     margin-left: -15px;
+}
+
+.menubar ul li .checkBox{
+    display:none;
 }
 
 .menubar ul li:hover .about-sub-menu ul{
@@ -70,11 +74,11 @@ body {
 
 .image_viewer_screen{
     display: inline-flex;
-    background: #fff;
+    background: #FFFAF5;
 }
 
 .col-dataset{
-    background: rgb(131, 131, 131);
+    background: #ffecd2;
     width: 10%;
     overflow: auto;
     padding: 0.2%;
@@ -82,7 +86,7 @@ body {
     /* display: block; */
 }
 nav ul li{
-    border: 1px solid black;
+    border: 1px solid #ddd9d6;
     margin: 2%;
 }
 
@@ -107,7 +111,7 @@ nav ul li{
 }
 .mainCanvas{
     z-index: 0; 
-    border:1px solid #000000;
+    border:1px solid #ddd9d6;
     /* filter: brightness(100%); */
 }
 .compareCanvas{
@@ -137,7 +141,7 @@ nav ul li{
     /* display: inline-block; */
     /* float: left; */
     width: 15%;
-    background: #323338;
+    /* background: #323338; */
     z-index: 1;
     height: 20%;
 }
@@ -153,7 +157,7 @@ nav ul li{
     /* line-height: 15px; */
     font-size: 20px;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid #ddd9d6;
     /* border-top: 1px solid rgba(255, 255, 255, .1);
     border-bottom: 1px solid black; */
 }
@@ -180,7 +184,7 @@ nav ul li{
     background-color: inherit;
     float: left;
     border-radius: 10%;
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid #ddd9d6;
     outline: none;
     cursor: pointer;
     padding: 5px 10px;

@@ -1,14 +1,23 @@
 
 *{
     margin: 0;
+    /* height: 100%; */
 }
 
+html{height:100%}
+
 body{
-    background: rgb(72, 99, 255);
+    background: #fffaf4;
+    height: 80%;
 }
 
 .header{
-    background: rgb(122, 142, 233);
+    background: #4365e2;
+}
+
+.WebTitle{
+    color: #ffffff;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .row{
@@ -17,7 +26,7 @@ body{
 
 .row-filters{
     padding: 10px;
-    background: rgb(255, 211, 175);
+    background: #ffecd2;
 }
 
 .col-3{
@@ -27,17 +36,20 @@ body{
 
 .container{
     margin: 50px;
-    background: #fff;
+    margin-bottom: 0px;
+    background: #ffffff;
     padding-top: 20px;
     padding-left: 40px;
     padding-right: 40px;
+    border: 1px solid #ddd9d6;
+    height: 100%;
 }
 
 .dataset-container{
     padding: 10px;
     width: calc(30% - 10px);
     vertical-align: top;
-    border: 1px solid black;
+    border: 1px solid #ddd9d6;
     display: inline-block;
     max-height: 400px;
 }
@@ -50,8 +62,8 @@ body{
     padding-bottom: 20px;
 }
 
-.footer{
-    background: #000;
+footer{
+    background: #4365e2;
 }
 
 .footer .col-3{

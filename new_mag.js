@@ -46,6 +46,7 @@ compImage.onload = function(){
 }
 compImage.src = dataset_location + 'image' + image_number + '_HR.png';
 
+
 var fibreImage = new Image()
 fibreImage.src = "./Mask256_0.png";
 
@@ -192,11 +193,15 @@ function draw()
 }
 
 function pause(){
+    var element = document.getElementById("mouseTool");
+
     if (v_pause == false) {
         v_pause = true
+        element.classList.add('active')
         draw()
     } else {
         v_pause = false
+        element.classList.remove('active')
     }
 }
 
@@ -309,7 +314,10 @@ function adjustZoom(zoomAmount, zoomFactor)
 
 function toggleMove(){
     var checkMove = document.getElementById("checkMove");
+    var element = document.getElementById("moveTool");
+
     if (!checkMove.checked) {
+        element.classList.add('active')
         canvas.addEventListener('mousedown', onPointerDown)
         // canvas.addEventListener('touchstart', (e) => handleTouch(e, onPointerDown))
         canvas.addEventListener('mouseup', onPointerUp)
@@ -317,6 +325,8 @@ function toggleMove(){
         canvas.addEventListener('mousemove', onPointerMove)
         // canvas.addEventListener('touchmove', (e) => handleTouch(e, onPointerMove))
     } else {
+        element.classList.remove('active')
+
         canvas.removeEventListener('mousedown', onPointerDown)
         // canvas.removeEventListener('touchstart', (e) => handleTouch(e, onPointerDown))
         canvas.removeEventListener('mouseup', onPointerUp)
@@ -336,88 +346,90 @@ function toggleMove(){
 //Code for eraser for later
 
 //https://codepen.io/alperentalaslioglu/pen/yPGgvP
-// function draw_annotation() {
-//     // Definitions
-//     var boundings = canvas.getBoundingClientRect();
-  
-//     // Specifications
-//     var mouseX = 0;
-//     var mouseY = 0;
-//     ctx.strokeStyle = 'black'; // initial brush color
-//     ctx.lineWidth = 1; // initial brush width
-//     var isDrawing = false;
-  
-  
-//     // Handle Colors
-//     var colors = document.getElementsByClassName('colors')[0];
-  
-//     colors.addEventListener('click', function(event) {
-//       ctx.strokeStyle = event.target.value || 'black';
-//     });
-  
-//     // Handle Brushes
-//     var brushes = document.getElementsByClassName('brushes')[0];
-  
-//     brushes.addEventListener('click', function(event) {
-//       ctx.lineWidth = event.target.value || 1;
-//     });
-  
-//     // Mouse Down Event
-//     canvas.addEventListener('mousedown', function(event) {
-//       setMouseCoordinates(event);
+function draw_annotation() {
+    // Definitions
+    var boundings = canvas.getBoundingClientRect();
 
-//       isDrawing = true;
   
-//       // Start Drawing
-//       ctx.beginPath();
-//       ctx.moveTo(mouseX, mouseY);
-//     });
+    // Specifications
+    var mouseX = 0;
+    var mouseY = 0;
+    ctx.strokeStyle = 'black'; // initial brush color
+    ctx.lineWidth = 1; // initial brush width
+    var isDrawing = false;
   
-//     // Mouse Move Event
-//     canvas.addEventListener('mousemove', function(event) {
-//       setMouseCoordinates(event);
   
-//       if(isDrawing){
-//         ctx.lineTo(mouseX, mouseY);
-//         ctx.stroke();
-//       }
-//     });
+    // Handle Colors
+    var colors = document.getElementsByClassName('colors')[0];
   
-//     // Mouse Up Event
-//     canvas.addEventListener('mouseup', function(event) {
-//       setMouseCoordinates(event);
-//       isDrawing = false;
-//     });
+    colors.addEventListener('click', function(event) {
+      ctx.strokeStyle = event.target.value || 'black';
+    });
   
-//     // Handle Mouse Coordinates
-//     function setMouseCoordinates(e) {
-//     //   mouseX = event.clientX/cameraZoom - cameraOffset.x //+ boundings.left; ///cameraZoom
-//     //   mouseY = event.clientY/cameraZoom - cameraOffset.y //+ boundings.top;
+    // Handle Brushes
+    var brushes = document.getElementsByClassName('brushes')[0];
+  
+    brushes.addEventListener('click', function(event) {
+      ctx.lineWidth = event.target.value || 1;
+    });
+  
+    // Mouse Down Event
+    canvas.addEventListener('mousedown', function(event) {
+      setMouseCoordinates(event);
 
-//       mouseX = getEventLocation(e).x- cameraOffset.x/cameraZoom //cameraZoom
-//       mouseY = getEventLocation(e).y- cameraOffset.y/cameraZoom
+      isDrawing = true;
+  
+      // Start Drawing
+      ctx.beginPath();
+      ctx.moveTo(mouseX, mouseY);
+    });
+  
+    // Mouse Move Event
+    canvas.addEventListener('mousemove', function(event) {
+      setMouseCoordinates(event);
+  
+      if(isDrawing){
+        ctx.lineTo(mouseX, mouseY);
+        ctx.stroke();
+      }
+    });
+  
+    // Mouse Up Event
+    canvas.addEventListener('mouseup', function(event) {
+      setMouseCoordinates(event);
+      isDrawing = false;
+    });
+  
+    // Handle Mouse Coordinates
+    function setMouseCoordinates(e) {
+    //   mouseX = event.clientX/cameraZoom - cameraOffset.x //+ boundings.left; ///cameraZoom
+    //   mouseY = event.clientY/cameraZoom - cameraOffset.y //+ boundings.top;
+        x= e.pageX 
+        y= e.pageY 
+        mouseX = x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28
+        mouseY = y+9 - menu.offsetHeight
 
-//     }
+    }
   
-//     // Handle Clear Button
-//     var clearButton = document.getElementById('clear');
+    // Handle Clear Button
+    var clearButton = document.getElementById('clear');
   
-//     clearButton.addEventListener('click', function() {
-//       ctx.clearRect(0, 0, canvas.width, canvas.height);
-//     });
+    clearButton.addEventListener('click', function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
   
-//     // Handle Save Button
-//     var saveButton = document.getElementById('save');
+    // Handle Save Button
+    var saveButton = document.getElementById('save');
   
-//     saveButton.addEventListener('click', function() {
-//       var imageName = prompt('Please enter image name');
-//       var canvasDataURL = canvas.toDataURL();
-//       var a = document.createElement('a');
-//       a.href = canvasDataURL;
-//       a.download = imageName || 'drawing';
-//       a.click();
-//     });
-//   };
+    saveButton.addEventListener('click', function() {
+      var imageName = prompt('Please enter image name');
+      var canvasDataURL = canvas.toDataURL();
+      var a = document.createElement('a');
+      a.href = canvasDataURL;
+      a.download = imageName || 'drawing';
+      a.click();
+    });
+  };
 
 
 function togglePlaceAnnotation(){
@@ -439,17 +451,20 @@ function placeAnnotation(e){
     const annotationShapeSize = document.getElementById("annotationShapeSize")
     var shapeRadius = annotationShapeSize.value //Get text from textbox
 
+    x = e.pageX - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28
+    y = e.pageY - menu.offsetHeight -1
+
     //place text at position of mouse
     ctx.fillStyle="#990000";
     ctx.font="30px futura";
     ctx.textBaseline="top";
-    ctx.fillText(text,e.x+shapeRadius,e.y+shapeRadius); 
+    ctx.fillText(text,x+shapeRadius,y+shapeRadius); 
 
     //place circle at position of mouse    
     ctx.lineWidth = 4;
     ctx.strokeStyle = shapeColor;
     ctx.beginPath();
-    ctx.arc(e.x, e.y+10, shapeRadius, 0, 2 * Math.PI);
+    ctx.arc(x, y, shapeRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
     
@@ -538,7 +553,7 @@ function cursorMag(e){
         
         if (gaussian) {
 
-            zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
+            zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
             const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
             const data = imageData.data;
 
@@ -559,7 +574,7 @@ function cursorMag(e){
         }
 
     } else {
-        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
+        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
         zoomCtx.filter = 'blur(0px)';
         
     }
@@ -613,10 +628,15 @@ function comparisonSquare(){
 //https://stackoverflow.com/questions/23971717/magnifying-glass-that-follows-cursor-for-canvas
 function toggleMagnify(){
     var checkMove = document.getElementById("checkMag");
+    var element = document.getElementById("compTool");
     if (!checkMove.checked) {
+        element.classList.add('active')
+
         canvas.addEventListener("mousemove", cursorMag);
         canvas.addEventListener("mouseout", cursorOut);
     } else {
+        element.classList.remove('active')
+
         canvas.removeEventListener("mousemove", cursorMag);
         canvas.removeEventListener("mouseout", cursorOut);
     }

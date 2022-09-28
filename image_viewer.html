@@ -18,7 +18,7 @@
         <ul>
             <li onclick="toggleDisplayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li>
             <li class="active"><a href="../index.html">Home</a></li>
-            <li><a href="#">About Us</a>
+            <!-- <li><a href="#">About Us</a>
                 <div class="about-sub-menu">
                     <ul>
                         <li><a href="#">Mission</a></li>
@@ -33,7 +33,30 @@
             <li><a href="#">Investors</a></li>
             <li><a href="#">Pricing</a></li>
             <li><a href="#">Training</a></li>
-            <li><a href="#">Content</a></li>
+            <li><a href="#">Content</a></li> -->
+            <li id="mouseTool">
+                <input class="checkBox" type="checkbox" id="checkPoint">
+                <label onclick="pause()" for="checkPoint" class="fa fa-mouse-pointer"></label>
+            </li>
+            <li id="moveTool">
+                <input class="checkBox" type="checkbox" id="checkMove">
+                <label onclick="toggleMove()" for="checkMove" class="fa fa-arrows"></label>
+            </li>
+            <li id="compTool">
+                <input class="checkBox" type="checkbox" id="checkMag">
+                <label onclick="toggleMagnify()" for="checkMag" class="fa fa-search"></label>
+            </li>
+            <li id="drawTool">
+                <input class="checkBox" type="checkbox" id="checkDraw">
+                <label onclick="draw_annotation()" for="checkDraw" class="fa fa-pencil"></label>
+            </li>
+            <li id="annotateTool">
+                <input class="checkBox" type="checkbox" id="checkPlaceAnnotation">
+                <label onclick="togglePlaceAnnotation()" for="checkPlaceAnnotation" class="fa fa-font"></label>
+            </li>
+            <li class="active">
+                <a href = "https://forms.gle/Rkqqzdi2bsiS4vti7" target="_blank">Website Questionnaire</a>
+            </li>
         </ul>
     </div>
 
@@ -141,7 +164,7 @@
 
         <div class="toolbar">
             <ul>
-                <li>
+                <!-- <li>
                     <input class="checkBox" type="checkbox" id="checkPoint">
                     <label onclick="pause()" for="checkPoint" class="fa fa-mouse-pointer"></label>
                 </li>
@@ -160,7 +183,7 @@
                 <li>
                     <input class="checkBox" type="checkbox" id="checkPlaceAnnotation">
                     <label onclick="togglePlaceAnnotation()" for="checkPlaceAnnotation" class="fa fa-font"></label>
-                </li>
+                </li> -->
             </ul>
 
             <div class="tab">
