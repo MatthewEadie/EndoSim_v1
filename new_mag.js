@@ -12,6 +12,7 @@ var datasets = document.getElementById('col-dataset')
 var thumbnail = document.getElementById('thumbnail')
 
 
+
 let v_pause = true
 let fibre = false;
 let gaussian = false;
@@ -33,7 +34,7 @@ image.onload = function(){
     canvas.width  = this.naturalWidth;
     canvas.height = this.naturalHeight;
 
-    canvas.drawImage(image,0,0)
+    // canvas.drawImage(image,0,0)
 }
 image.src = dataset_location + 'image' + image_number + '_HR.png';
 
@@ -42,7 +43,7 @@ image.src = dataset_location + 'image' + image_number + '_HR.png';
 
 var compImage = new Image(this.naturalWidth, this.naturalWidth)
 compImage.onload = function(){
-    zoomCanvas.drawImage(compImage,0,0)
+    // zoomCanvas.drawImage(compImage,0,0)
 }
 compImage.src = dataset_location + 'image' + image_number + '_HR.png';
 
@@ -646,3 +647,4 @@ canvas.addEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY)
 
 // Ready, set, go
 draw()
+openTab(event, 'magnify_settings')

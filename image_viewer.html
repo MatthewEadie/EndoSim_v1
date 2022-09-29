@@ -16,7 +16,7 @@
 
     <div class="menubar" id="menubar">
         <ul>
-            <li onclick="toggleDisplayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li>
+            <!-- <li onclick="toggleDisplayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li> -->
             <li class="active"><a href="../index.html">Home</a></li>
             <!-- <li><a href="#">About Us</a>
                 <div class="about-sub-menu">
@@ -42,9 +42,9 @@
                 <input class="checkBox" type="checkbox" id="checkMove">
                 <label onclick="toggleMove()" for="checkMove" class="fa fa-arrows"></label>
             </li>
-            <li id="compTool">
+            <li id="compTool" onclick="toggleMagnify()">
                 <input class="checkBox" type="checkbox" id="checkMag">
-                <label onclick="toggleMagnify()" for="checkMag" class="fa fa-search"></label>
+                <label for="checkMag" class="fa fa-search"></label>
             </li>
             <li id="drawTool">
                 <input class="checkBox" type="checkbox" id="checkDraw">
@@ -187,9 +187,9 @@
             </ul>
 
             <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'annotation_settings')">Annotate</button>
-                <button class="tablinks" onclick="openTab(event, 'image_settings')">Image</button>
+                <!-- <button class="tablinks" onclick="openTab(event, 'image_settings')">Image</button> -->
                 <button class="tablinks" onclick="openTab(event, 'magnify_settings')">Compare</button>
+                <button class="tablinks" onclick="openTab(event, 'annotation_settings')">Annotate</button>
                 <button class="tablinks" onclick="openTab(event, 'draw_settings')">Draw</button>
             </div>
 
@@ -248,7 +248,7 @@
                 -->
             </div>
         
-            <div id="image_settings" class="tabcontent image">
+            <!-- <div id="image_settings" class="tabcontent image">
                 <div class="image_settings">  
                     <input type="checkbox" id="checkTissueBkg" onclick="toggleTissueBkg(this);" checked>
                     <label for="checkTissueBkg">Show background tissue</label>
@@ -266,14 +266,14 @@
                                 min="0" max="200" value="100"/>
                                 <label for="sliderBrightness">Brightness <span id="lblBrightnessValue">100</span>%</label>
                         </li>
-                        <!-- <li>
+                         <li>
                             <input type="range" orient="vertical" id="sliderNoise" oninput="noiseLevel()" onchange="noiseLevel()"
                                 min="0" max="100" value="0"/>
                                 <label for="sliderNoise">Noise 100%</label>
-                        </li> -->
-                    </div>    
+                        </li>
+                    </div> 
                 </div>
-            </div>
+            </div> -->
         
             <div id="magnify_settings" class="tabcontent magnify">
                 <div class="enhancement_method">
@@ -312,7 +312,34 @@
                     </ul>
                 </div>
 
-                
+                <br>
+
+                <input type="checkbox" id="checkTissueBkg" onclick="toggleTissueBkg(this);" checked>
+                <label for="checkTissueBkg">Show background tissue</label>
+
+                <br>
+
+                <div class="image_settings">  
+
+                    <button onclick="resetFilter()">reset</button>              
+                    <div class="contrast_sliders">
+                        <li>
+                            <input type="range" orient="vertical" id="sliderContrast" oninput="changeFilter()" onchange="changeFilter()"
+                                min="0" max="200" value="100"/>
+                                <label for="sliderContrast">contrast <span id="lblContrastValue">100</span>%</label>
+
+                            <input type="range" orient="vertical" id="sliderBrightness" oninput="changeFilter()" onchange="changeFilter()"
+                                min="0" max="200" value="100"/>
+                                <label for="sliderBrightness">Brightness <span id="lblBrightnessValue">100</span>%</label>
+                        </li>
+                        <!-- <li>
+                            <input type="range" orient="vertical" id="sliderNoise" oninput="noiseLevel()" onchange="noiseLevel()"
+                                min="0" max="100" value="0"/>
+                                <label for="sliderNoise">Noise 100%</label>
+                        </li> -->
+                    </div>  
+
+                </div>
             </div>
         
             <div id="draw_settings" class="tabcontent draw">
