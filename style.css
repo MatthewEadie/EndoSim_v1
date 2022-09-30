@@ -13,15 +13,27 @@ body{
 
 .header{
     background: #4365e2;
+    align-items: flex-start;
+    display: flex;
+    padding: 1rem;
 }
 
 .WebTitle{
     color: #ffffff;
     font-family:Arial, Helvetica, sans-serif;
+    font-size: 45px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 70rem;
+    padding-top: 2rem;
 }
 
 .row{
     align-items: center;
+    display: flex;
+    justify-content: center;
+
 }
 
 .row-filters{

@@ -15,7 +15,7 @@
 <body>
 
     <div class="menubar" id="menubar">
-        <ul>
+        <ul class="menuHome">
             <!-- <li onclick="toggleDisplayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li> -->
             <li class="active"><a href="../index.html">Home</a></li>
             <!-- <li><a href="#">About Us</a>
@@ -34,14 +34,18 @@
             <li><a href="#">Pricing</a></li>
             <li><a href="#">Training</a></li>
             <li><a href="#">Content</a></li> -->
-            <li id="mouseTool">
+            <!-- <li id="mouseTool">
                 <input class="checkBox" type="checkbox" id="checkPoint">
                 <label onclick="pause()" for="checkPoint" class="fa fa-mouse-pointer"></label>
-            </li>
-            <li id="moveTool">
+            </li> -->
+            <!-- <li id="moveTool">
                 <input class="checkBox" type="checkbox" id="checkMove">
                 <label onclick="toggleMove()" for="checkMove" class="fa fa-arrows"></label>
-            </li>
+            </li> -->
+            
+        </ul>
+
+        <ul class="menuTools">
             <li id="compTool" onclick="toggleMagnify()">
                 <input class="checkBox" type="checkbox" id="checkMag">
                 <label for="checkMag" class="fa fa-search"></label>
@@ -54,6 +58,10 @@
                 <input class="checkBox" type="checkbox" id="checkPlaceAnnotation">
                 <label onclick="togglePlaceAnnotation()" for="checkPlaceAnnotation" class="fa fa-font"></label>
             </li>
+            
+        </ul>
+
+        <ul class="menuQuestionnaire">
             <li class="active">
                 <a href = "https://forms.gle/Rkqqzdi2bsiS4vti7" target="_blank">Website Questionnaire</a>
             </li>
@@ -193,24 +201,90 @@
                 <button class="tablinks" onclick="openTab(event, 'draw_settings')">Draw</button>
             </div>
 
+            <div id="magnify_settings" class="tabcontent magnify">
+                <p>Enhancement Method</p>
+                <div class="enhancement_method">
+                    <ul>
+                        <li>
+                            <input type="radio" name="enhance_method" id="Normal" checked onclick="load_Fibre_image()">None 
+                        </li>
+                        <li>
+                            <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
+                        </li>
+                        <li>
+                            <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
+                        </li>
+                        <li>
+                            <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
+                        </li>
+            
+                    </ul>
+                </div>
+
+                <hr>
+
+                <p>Fibre shape</p>
+                <div class="row">
+                    <btn onclick="comparisonSquare()" class="annotation-shape fa fa-square-o"></btn>
+                    <btn onclick="comparisonCircle()" class="annotation-shape fa fa-circle-o"></btn>
+                </div>
+
+                <br>
+                <hr>
+                <br>
+
+                <div class="slider_container">
+                    <ul>
+                        <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="256" class="slider" onchange="zoomSize_changed()"></li>
+                        <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
+        
+                        <li><input id="gaussianAmount" type="range" min="0" max="10" value="0" class="slider" oninput="gaussianAmount_changed()"></li>
+                        <label for="magAmount">Gaussian blur: <span id="gaussianValue">0</span>px</label>
+                    </ul>
+                </div>
+
+                <br>
+                <hr>
+                <br>
+
+                <input type="checkbox" id="checkTissueBkg" onclick="toggleTissueBkg(this);" checked>
+                <label for="checkTissueBkg">Show background tissue</label>
+
+                <br>
+                <br>
+
+                <div class="image_settings">  
+
+                                
+                    <div class="contrast_sliders">
+                        <li>
+                            <input type="range" orient="vertical" id="sliderContrast" oninput="changeFilter()" onchange="changeFilter()"
+                                min="0" max="200" value="100"/>
+                                <label for="sliderContrast">contrast <span id="lblContrastValue">100</span>%</label>
+
+                            <input type="range" orient="vertical" id="sliderBrightness" oninput="changeFilter()" onchange="changeFilter()"
+                                min="0" max="200" value="100"/>
+                                <label for="sliderBrightness">Brightness <span id="lblBrightnessValue">100</span>%</label>
+                        </li>
+                        <!-- <li>
+                            <input type="range" orient="vertical" id="sliderNoise" oninput="noiseLevel()" onchange="noiseLevel()"
+                                min="0" max="100" value="0"/>
+                                <label for="sliderNoise">Noise 100%</label>
+                        </li> -->
+                    </div>  
+
+                    <br>
+
+                    <button onclick="resetFilter()">Reset filters</button>
+                     
+
+                </div>
+            </div>
+
             <div id="annotation_settings" class="tabcontent annotation">
                 <!-- NEEDS CODE ADDED -->
                 <p>Annotation text</p>
-                <input type="text" id="annotationTextBox" class="annotationTextBox">
-        
-                <!-- Text Settings -->
-                <hr>
-                <p>Font</p>
-                <select name="" id="">
-                    <option value="">Default</option>
-                </select>
-        
-                <p>Font size</p>
-                <input type="number">
-        
-                <p>Text colour</p>
-                <input type="color">
-                
+                <input type="text" id="annotationTextBox" class="annotationTextBox">                
         
                 <hr>
                 <!-- Shape settings -->
@@ -224,13 +298,15 @@
                 </div>
         
                 <p>Shape Size</p>
-                <input type="number" id="annotationShapeSize" value="10">
-        
+                <input type="number" onchange="shapeScaleChange()" id="annotationShapeSize" value="10">
+                <hr id="shape_scale" size="2" color="black" width="20px">
+
                 <p>Shape Color</p>
                 <input type="color" id="annotationShapeColor">
 
                 <hr>
 
+                <button onclick="clearAnnotations()">Clear annotations</button>
                 <div class="annotation_container">
                     <ol id="annotation_list">
                     </ol>
@@ -275,72 +351,7 @@
                 </div>
             </div> -->
         
-            <div id="magnify_settings" class="tabcontent magnify">
-                <div class="enhancement_method">
-                    <ul>
-                        <li>
-                            <input type="radio" name="enhance_method" id="Normal" checked onclick="load_Fibre_image()">None 
-                        </li>
-                        <li>
-                            <input type="radio" name="enhance_method" id="LinearInterp" onclick="load_Linear_image()">Linear Interpolation
-                        </li>
-                        <li>
-                            <input type="radio" name="enhance_method" id="GaussianBlur" onclick="load_Gaussian_image()">Gaussian Blurring
-                        </li>
-                        <li>
-                            <input type="radio" name="enhance_method" id="MachineLearning" onclick="load_SR_image()">Machine Learning
-                        </li>
-            
-                    </ul>
-                </div>
 
-                <p>Shape</p>
-                <div class="row">
-                    <btn onclick="comparisonSquare()" class="annotation-shape fa fa-square-o"></btn>
-                    <btn onclick="comparisonCircle()" class="annotation-shape fa fa-circle-o"></btn>
-                </div>
-
-                <br>
-
-                <div class="slider_container">
-                    <ul>
-                        <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="256" class="slider" onchange="zoomSize_changed()"></li>
-                        <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
-        
-                        <li><input id="gaussianAmount" type="range" min="0" max="10" value="0" class="slider" oninput="gaussianAmount_changed()"></li>
-                        <label for="magAmount">Gaussian blur: <span id="gaussianValue">0</span>px</label>
-                    </ul>
-                </div>
-
-                <br>
-
-                <input type="checkbox" id="checkTissueBkg" onclick="toggleTissueBkg(this);" checked>
-                <label for="checkTissueBkg">Show background tissue</label>
-
-                <br>
-
-                <div class="image_settings">  
-
-                    <button onclick="resetFilter()">reset</button>              
-                    <div class="contrast_sliders">
-                        <li>
-                            <input type="range" orient="vertical" id="sliderContrast" oninput="changeFilter()" onchange="changeFilter()"
-                                min="0" max="200" value="100"/>
-                                <label for="sliderContrast">contrast <span id="lblContrastValue">100</span>%</label>
-
-                            <input type="range" orient="vertical" id="sliderBrightness" oninput="changeFilter()" onchange="changeFilter()"
-                                min="0" max="200" value="100"/>
-                                <label for="sliderBrightness">Brightness <span id="lblBrightnessValue">100</span>%</label>
-                        </li>
-                        <!-- <li>
-                            <input type="range" orient="vertical" id="sliderNoise" oninput="noiseLevel()" onchange="noiseLevel()"
-                                min="0" max="100" value="0"/>
-                                <label for="sliderNoise">Noise 100%</label>
-                        </li> -->
-                    </div>  
-
-                </div>
-            </div>
         
             <div id="draw_settings" class="tabcontent draw">
                 <div class="draw_container">

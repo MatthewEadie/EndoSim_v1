@@ -12,6 +12,11 @@ var datasets = document.getElementById('col-dataset')
 var thumbnail = document.getElementById('thumbnail')
 
 
+const annotationShapeScale = document.getElementById("shape_scale")
+const annotationShapeSize = document.getElementById("annotationShapeSize")
+var shapeRadius = 10
+
+var annotation_count = 1
 
 let v_pause = true
 let fibre = false;
@@ -292,26 +297,26 @@ function handlePinch(e)
     }
 }
 
-function adjustZoom(zoomAmount, zoomFactor)
-{
-    if (!isDragging)
-    {
-        if (zoomAmount)
-        {
-            cameraZoom += zoomAmount
-        }
-        else if (zoomFactor)
-        {
-            console.log(zoomFactor)
-            cameraZoom = zoomFactor*lastZoom
-        }
+// function adjustZoom(zoomAmount, zoomFactor)
+// {
+//     if (!isDragging)
+//     {
+//         if (zoomAmount)
+//         {
+//             cameraZoom += zoomAmount
+//         }
+//         else if (zoomFactor)
+//         {
+//             console.log(zoomFactor)
+//             cameraZoom = zoomFactor*lastZoom
+//         }
         
-        cameraZoom = Math.min( cameraZoom, MAX_ZOOM )
-        cameraZoom = Math.max( cameraZoom, MIN_ZOOM )
+//         cameraZoom = Math.min( cameraZoom, MAX_ZOOM )
+//         cameraZoom = Math.max( cameraZoom, MIN_ZOOM )
         
-        console.log(zoomAmount)
-    }
-}
+//         console.log(zoomAmount)
+//     }
+// }
 
 function toggleMove(){
     var checkMove = document.getElementById("checkMove");
@@ -334,7 +339,7 @@ function toggleMove(){
         // canvas.removeEventListener('touchend',  (e) => handleTouch(e, onPointerUp))
         canvas.removeEventListener('mousemove', onPointerMove)
         // canvas.removeEventListener('touchmove', (e) => handleTouch(e, onPointerMove))
-        canvas.removeEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY))        
+        // canvas.removeEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY))        
     }
 }
 
@@ -349,7 +354,17 @@ function toggleMove(){
 //https://codepen.io/alperentalaslioglu/pen/yPGgvP
 function draw_annotation() {
     // Definitions
-    var boundings = canvas.getBoundingClientRect();
+    // var boundings = canvas.getBoundingClientRect();
+    var element = document.getElementById("drawTool");
+
+    if (v_pause == false) {
+        v_pause = true
+        element.classList.remove('active')
+        draw()
+    } else {
+        v_pause = false
+        element.classList.add('active')
+    }
 
   
     // Specifications
@@ -407,8 +422,8 @@ function draw_annotation() {
     //   mouseY = event.clientY/cameraZoom - cameraOffset.y //+ boundings.top;
         x= e.pageX 
         y= e.pageY 
-        mouseX = x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28
-        mouseY = y+9 - menu.offsetHeight
+        mouseX = x - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28
+        mouseY = y - menu.offsetHeight
 
     }
   
@@ -416,7 +431,7 @@ function draw_annotation() {
     var clearButton = document.getElementById('clear');
   
     clearButton.addEventListener('click', function() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame( draw )
     });
   
     // Handle Save Button
@@ -434,13 +449,26 @@ function draw_annotation() {
 
 
 function togglePlaceAnnotation(){
+    var element = document.getElementById("annotateTool");
     var checkPlaceAnno = document.getElementById("checkPlaceAnnotation");
+
     if (!checkPlaceAnno.checked) {
         canvas.addEventListener('mousedown', placeAnnotation)
+        element.classList.add('active')
+        v_pause = false
     } else {
         canvas.removeEventListener('mousedown', placeAnnotation)   
+        element.classList.remove('active')
+        v_pause = true
+        draw()
     }
 }
+
+function shapeScaleChange(){
+    shapeRadius = +annotationShapeSize.value //Get text from textbox
+    annotationShapeScale.width = shapeRadius*2
+}
+
 
 function placeAnnotation(e){
     const textBox = document.getElementById("annotationTextBox")
@@ -449,17 +477,17 @@ function placeAnnotation(e){
     const annotationShapeColor = document.getElementById("annotationShapeColor")
     var shapeColor = annotationShapeColor.value //Get text from textbox
 
-    const annotationShapeSize = document.getElementById("annotationShapeSize")
-    var shapeRadius = annotationShapeSize.value //Get text from textbox
+    
 
     x = e.pageX - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28
     y = e.pageY - menu.offsetHeight -1
 
     //place text at position of mouse
-    ctx.fillStyle="#990000";
+    ctx.fillStyle=shapeColor;
     ctx.font="30px futura";
-    ctx.textBaseline="top";
-    ctx.fillText(text,x+shapeRadius,y+shapeRadius); 
+    ctx.fillText(annotation_count,x+shapeRadius,y-shapeRadius); 
+
+    annotation_count++
 
     //place circle at position of mouse    
     ctx.lineWidth = 4;
@@ -474,6 +502,21 @@ function placeAnnotation(e){
     li.appendChild(document.createTextNode(text));
     ul.appendChild(li);
 }
+
+function clearAnnotations(){
+    var ul = document.getElementById("annotation_list");
+    while (ul.firstChild) {
+        ul.removeChild(ul.lastChild);
+      }
+    
+    annotation_count = 1
+    requestAnimationFrame( draw )
+}
+
+
+
+
+
 
 
 function gaussianAmount_changed(){
@@ -610,7 +653,6 @@ function cursorMag(e){
 
 function toggleTissueBkg(cb){
     showTissue = cb.checked
-    console.log(cb.checked)
 }
 
 function cursorOut(e){
@@ -630,6 +672,7 @@ function comparisonSquare(){
 function toggleMagnify(){
     var checkMove = document.getElementById("checkMag");
     var element = document.getElementById("compTool");
+    load_Fibre_image();
     if (!checkMove.checked) {
         element.classList.add('active')
 
