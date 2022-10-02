@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EndoSim Image Viewer</title>
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
+
     <link rel="stylesheet" href="image_viewer_style.css">
     <link rel="stylesheet" href="image_magnifier_style.css">
     <link rel="stylesheet" href="image_drawing_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 </head>
 <body>
@@ -17,7 +19,8 @@
     <div class="menubar" id="menubar">
         <ul class="menuHome">
             <!-- <li onclick="toggleDisplayDataset()"><i class="fa fa-bars" aria-hidden="true"></i></li> -->
-            <li class="active"><a href="../index.html">Home</a></li>
+            <!-- <li class="active"><a href="../index.html">Home</a></li> -->
+            <li class="active"><a href="EndoSim_v1/index.html">Home</a></li>
             <!-- <li><a href="#">About Us</a>
                 <div class="about-sub-menu">
                     <ul>
@@ -235,8 +238,13 @@
 
                 <div class="slider_container">
                     <ul>
-                        <li><input id="zoomSize" type="range" min="100" max="500" step="5" value="256" class="slider" onchange="zoomSize_changed()"></li>
-                        <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
+                        <li>
+                            <input id="zoomSize" type="range" min="100" max="500" step="5" value="256" class="slider" onchange="zoomSize_changed()">
+                        
+                            <div class="">
+                                <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
+                            </div>
+                        </li>
         
                         <li><input id="gaussianAmount" type="range" min="0" max="10" value="0" class="slider" oninput="gaussianAmount_changed()"></li>
                         <label for="magAmount">Gaussian blur: <span id="gaussianValue">0</span>px</label>
@@ -409,6 +417,8 @@
 
 
     <script src="new_mag.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
     
 </body>
 </html>
