@@ -12,6 +12,11 @@ var datasets = document.getElementById('col-dataset')
 var thumbnail = document.getElementById('thumbnail')
 
 
+
+var ML_radioBtn = document.getElementById('MachineLearning')
+var Interp_radioBtn = document.getElementById('LinearInterp')
+
+
 const annotationShapeScale = document.getElementById("shape_scale")
 const annotationShapeSize = document.getElementById("annotationShapeSize")
 var shapeRadius = 10
@@ -43,7 +48,8 @@ image.onload = function(){
 }
 image.src = dataset_location + 'image' + image_number + '_HR.png';
 
-
+var greyImg = new Image(this.naturalWidth, this.naturalWidth)
+greyImg.src = './media/Grey.png';
 
 
 var compImage = new Image(this.naturalWidth, this.naturalWidth)
@@ -84,7 +90,7 @@ function load_Linear_image(){
     gaussian = false;
 
     
-    draw()
+    // draw()
 }
 
 function load_Gaussian_image(){
@@ -97,6 +103,7 @@ function load_Gaussian_image(){
 
 function load_SR_image(){
     compImage.src = dataset_location + 'image' + image_number + '_SR.png';
+    alert('called')
     fibre = false;
     preblur = false;
     gaussian = false;
@@ -107,7 +114,49 @@ function changeImage(imgNo){
     image_number = imgNo
     image.src = dataset_location + 'image' + image_number + '_HR.png';
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+
+    var interp = dataset_location + 'image' + image_number + '_Interp.png';
+    var ML = dataset_location + 'image' + image_number + '_SR.png';
+
+    //https://codepen.io/kallil-belmonte/pen/KKKRoyx
+    checkIfImageExists(interp, (exists) => {
+        if (exists) {
+          // Success code
+          Interp_radioBtn.disabled = false
+        } else {
+          // Fail code
+          Interp_radioBtn.disabled = true
+        }
+      });
+
+    checkIfImageExists(ML, (exists) => {
+        if (exists) {
+          // Success code
+          ML_radioBtn.disabled = false
+        } else {
+          // Fail code
+          ML_radioBtn.disabled = true
+        }
+      });    
 }
+//https://codepen.io/kallil-belmonte/pen/KKKRoyx
+function checkIfImageExists(url, callback) {
+    const img = new Image();
+    img.src = url;
+
+    if (img.complete) {
+      callback(true);
+    } else {
+      img.onload = () => {
+        callback(true);
+      };
+      
+      img.onerror = () => {
+        callback(false);
+      };
+    }
+  }
+
 
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
@@ -186,11 +235,11 @@ function draw()
     // ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
 
     if(showTissue){
+        //Draw background
         ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
     } else {
-        ctx.rect(0,0,canvas.width, canvas.height)
-        ctx.fillStyle = "grey"
-        ctx.fill()
+        //Hide background
+        ctx.drawImage(greyImg,0,0)
     }
     
     if (v_pause) {
@@ -686,7 +735,7 @@ function toggleMagnify(){
     }
 }
 
-canvas.addEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY))
+// canvas.addEventListener( 'wheel', (e) => adjustZoom(e.deltaY*SCROLL_SENSITIVITY))
 
 // Ready, set, go
 draw()
