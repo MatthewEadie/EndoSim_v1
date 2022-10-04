@@ -49,28 +49,30 @@
         </ul>
 
         <ul class="menuTools">
-            <li id="compTool" onclick="toggleMagnify()">
+            <li class="compTool" id="compTool" onclick="toggleMagnify()">
                 <input class="checkBox" type="checkbox" id="checkMag">
                 <label for="checkMag" class="fa fa-search"></label>
+                <span class="comptooltext">Toggle fibre bundle comparison tool.</span>
             </li>
-            <li id="drawTool">
-                <input class="checkBox" type="checkbox" id="checkDraw">
-                <label onclick="draw_annotation()" for="checkDraw" class="fa fa-pencil"></label>
-            </li>
-            <li id="annotateTool">
+            <li class="annotateTool" id="annotateTool">
                 <input class="checkBox" type="checkbox" id="checkPlaceAnnotation">
                 <label onclick="togglePlaceAnnotation()" for="checkPlaceAnnotation" class="fa fa-font"></label>
+                <span class="annotatetooltext">Toggle place annotation tool.</span>
             </li>
-            
+            <li class="drawTool" id="drawTool">
+                <input class="checkBox" type="checkbox" id="checkDraw">
+                <label onclick="draw_annotation()" for="checkDraw" class="fa fa-pencil"></label>
+                <span class="drawtooltext">Toggle drawing tool.</span>
+            </li>
         </ul>
-
+        
         <ul class="menuQuestionnaire">
             <li class="active">
                 <a href = "https://forms.gle/Rkqqzdi2bsiS4vti7" target="_blank">Website Questionnaire</a>
             </li>
         </ul>
     </div>
-
+    
     <script>
         function toggleDisplayDataset(){
             const col_dataset = document.getElementById("col-dataset")
@@ -87,12 +89,12 @@
         }
     </script>
 
-    <div class="image_viewer_screen">
-
-
-
-        <div class="col-dataset" id="col-dataset">
-            <nav>
+<div class="image_viewer_screen">
+    
+    
+    
+    <div class="col-dataset" id="col-dataset">
+        <nav>
             <ul>
                 <li onclick="changeImage('1')">
                     <div class="dataset_thumbnail" id="thumbnail">
@@ -164,7 +166,6 @@
         </nav>
         </div>
         
-
         <div class="Canvas" id="Canvas">
             <canvas class="mainCanvas" id="mainCanvas" width="1280" height="547"></canvas>
             <canvas class="compareCanvas" id="compareCanvas" width="256" height="256" style="display:none;"></canvas>   

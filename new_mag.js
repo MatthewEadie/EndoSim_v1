@@ -137,7 +137,9 @@ function changeImage(imgNo){
           // Fail code
           ML_radioBtn.disabled = true
         }
-      });    
+      });  
+      
+
 }
 //https://codepen.io/kallil-belmonte/pen/KKKRoyx
 function checkIfImageExists(url, callback) {
