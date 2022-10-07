@@ -9,7 +9,7 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
 
     <link rel="stylesheet" href="image_viewer_style.css">
-    <link rel="stylesheet" href="image_magnifier_style.css">
+    <!-- <link rel="stylesheet" href="image_magnifier_style.css"> -->
     <link rel="stylesheet" href="image_drawing_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -240,10 +240,18 @@
                 <div class="slider_container">
                     <ul>
                         <li>
-                            <input id="zoomSize" type="range" min="100" max="500" step="5" value="256" class="slider" onchange="zoomSize_changed()">
-                        
-                            <div class="">
+                            <div class="col-3">
                                 <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
+                                <select name="fibre_size" id="fibre_size" onchange="fibreSize_changed()">
+                                    <option value="100">100px</option>
+                                    <option value="200">200px</option>
+                                    <option value="256">256px</option>
+                                    <option value="300">300px</option>
+                                    <option value="400">400px</option>
+                                    <option value="500">500px</option>
+                                    <option value="512">512px</option>
+                                    <option value="600">600px</option>
+                                </select>
                             </div>
                         </li>
         

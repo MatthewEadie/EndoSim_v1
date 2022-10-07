@@ -60,17 +60,17 @@ compImage.src = dataset_location + 'image' + image_number + '_HR.png';
 
 
 var fibreImage = new Image()
-fibreImage.src = "./Mask256_0.png";
+fibreImage.src = "./images/fibres/Mask256.png";
 
-let zoomSlider = document.getElementById("zoomSize");
+let fibre_size = document.getElementById("fibre_size");
 let zoomOutput = document.getElementById("zoomSizeValue");
 
-zoomOutput.innerHTML = zoomSlider.value;
-zoomSlider.oninput = function() {
-    zoomOutput.innerHTML = this.value;
-    zoomCanvas.width=this.value
-    zoomCanvas.height=this.value
-}
+// zoomOutput.innerHTML = zoomSlider.value;
+// zoomSlider.oninput = function() {
+//     zoomOutput.innerHTML = this.value;
+//     zoomCanvas.width=this.value
+//     zoomCanvas.height=this.value
+// }
 
 var preblur = false
 
@@ -158,6 +158,15 @@ function checkIfImageExists(url, callback) {
       };
     }
   }
+
+
+function fibreSize_changed(){
+    //get new fibre bundle image
+    fibreImage.src = `./images/fibres/Mask${fibre_size.value}.png`;
+    //change fibre canvas size
+    zoomCanvas.width = fibre_size.value
+    zoomCanvas.height = fibre_size.value
+}
 
 
 function openTab(evt, tabName) {
@@ -629,7 +638,7 @@ function cursorMag(e){
 
             zoomCtx.filter = `blur(${5}px)`;
 
-            zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +27, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
+            zoomCtx.drawImage(compImage, x-20 - thumbnail.offsetWidth, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
             const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
             const data = imageData.data;
 
@@ -648,7 +657,7 @@ function cursorMag(e){
         
         if (gaussian) {
 
-            zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
+            zoomCtx.drawImage(compImage, x-20 - thumbnail.offsetWidth, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
             const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
             const data = imageData.data;
 
@@ -669,7 +678,7 @@ function cursorMag(e){
         }
 
     } else {
-        zoomCtx.drawImage(compImage, x+10 - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
+        zoomCtx.drawImage(compImage, x-20 - thumbnail.offsetWidth, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);
         zoomCtx.filter = 'blur(0px)';
         
     }
