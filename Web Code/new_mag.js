@@ -103,7 +103,6 @@ function load_Gaussian_image(){
 
 function load_SR_image(){
     compImage.src = dataset_location + 'image' + image_number + '_SR.png';
-    alert('called')
     fibre = false;
     preblur = false;
     gaussian = false;
