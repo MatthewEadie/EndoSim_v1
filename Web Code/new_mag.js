@@ -96,7 +96,7 @@ function load_Linear_image(){
 function load_Gaussian_image(){
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
     fibre = true;
-    preblur = false;
+    preblur = true;
     gaussian = true;
     draw()
 }
@@ -656,21 +656,21 @@ function cursorMag(e){
         
         if (gaussian) {
 
-            zoomCtx.drawImage(compImage, x-20 - thumbnail.offsetWidth, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
-            const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
-            const data = imageData.data;
+            // zoomCtx.drawImage(compImage, x-20 - thumbnail.offsetWidth, y+9 - menu.offsetHeight, zoomCanvas.width, zoomCanvas.height, 0,0, zoomCanvas.width, zoomCanvas.height);       
+            // const imageData = zoomCtx.getImageData(0,0, zoomCanvas.width, zoomCanvas.height);
+            // const data = imageData.data;
 
-            zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
-            const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
-            const fdata = fibreData.data;
+            // zoomCtx.drawImage(fibreImage, 0, 0,zoomCanvas.width, zoomCanvas.height);
+            // const fibreData = zoomCtx.getImageData(0, 0, zoomCanvas.width, zoomCanvas.height);
+            // const fdata = fibreData.data;
 
-            for (var i = 0; i < fdata.length; i += 4) {
-                fdata[i]     = (data[i] * fdata[i]) /255;     // red
-                fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
-                fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
-            }
+            // for (var i = 0; i < fdata.length; i += 4) {
+            //     fdata[i]     = (data[i] * fdata[i]) /255;     // red
+            //     fdata[i + 1] = (data[i + 1] * fdata[i + 1]) / 255; // green
+            //     fdata[i + 2] = (data[i + 2] * fdata[i + 2]) / 255; // blue
+            // }
             
-            zoomCtx.putImageData(fibreData, 0, 0);
+            // zoomCtx.putImageData(fibreData, 0, 0);
             zoomCtx.filter = `blur(${gaussianAmount}px)`;
         } else {
             zoomCtx.filter = `blur(${0}px)`;
