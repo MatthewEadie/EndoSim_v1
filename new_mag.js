@@ -1,7 +1,10 @@
+
 //https://codepen.io/chengarda/pen/wRxoyB
 const canvas = document.getElementById("mainCanvas")
 let ctx = canvas.getContext('2d')
 
+// endosim db interface class instance;
+const db = new EndoSimDB();
 
 const zoomCanvas = document.getElementById("compareCanvas");
 // zoomCanvas.setAttribute("class", "img-magnifier-glass");
