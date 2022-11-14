@@ -76,6 +76,9 @@ var preblur = false
 
 function load_Fibre_image(){
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+
+    changeFilter_Internal(100,100)
+
     fibre = true;
     preblur = true
     gaussian = false;
@@ -83,8 +86,22 @@ function load_Fibre_image(){
     draw()
 }
 
+function load_Gaussian_image(){
+    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+
+    changeFilter_Internal(105,200) //values determined by eye
+
+    fibre = true;
+    preblur = true;
+    gaussian = true;
+    draw()
+}
+
 function load_Linear_image(){
     compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
+
+    changeFilter_Internal(120,90) //values determined by eye
+
     fibre = false;
     preblur = false;
     gaussian = false;
@@ -93,16 +110,11 @@ function load_Linear_image(){
     // draw()
 }
 
-function load_Gaussian_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
-    fibre = true;
-    preblur = true;
-    gaussian = true;
-    draw()
-}
-
 function load_SR_image(){
     compImage.src = dataset_location + 'image' + image_number + '_SR.png';
+
+    changeFilter_Internal(100,100)
+
     fibre = false;
     preblur = false;
     gaussian = false;
@@ -193,6 +205,21 @@ function changeFilter(){
     contrastSpan.innerHTML = `${sliderContrast.value}`
     brightnessSpan.innerHTML = `${sliderBrightness.value}`
   }
+
+function changeFilter_Internal(contrastValue, brightnessValue){
+    sliderContrast = document.getElementById("sliderContrast");
+    sliderBrightness = document.getElementById("sliderBrightness");
+    contrastSpan = document.getElementById("lblContrastValue");
+    brightnessSpan = document.getElementById("lblBrightnessValue");
+
+    zoomCanvas.style.setProperty('filter',`contrast(${contrastValue}%) brightness(${brightnessValue}%)`)
+
+    sliderContrast.value = contrastValue
+    sliderBrightness.value = brightnessValue
+    contrastSpan.innerHTML = `${contrastValue}`
+    brightnessSpan.innerHTML = `${brightnessValue}`
+}
+
 
 function resetFilter(){
     sliderContrast = document.getElementById("sliderContrast");
@@ -481,8 +508,9 @@ function draw_annotation() {
     //   mouseY = event.clientY/cameraZoom - cameraOffset.y //+ boundings.top;
         x= e.pageX 
         y= e.pageY 
-        mouseX = x - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28
-        mouseY = y - menu.offsetHeight
+
+        mouseX = x - 34 - thumbnail.offsetWidth
+        mouseY = y - menu.offsetHeight -1
 
     }
   
@@ -538,7 +566,7 @@ function placeAnnotation(e){
 
     
 
-    x = e.pageX - zoomCanvas.width + datasets.offsetWidth - thumbnail.offsetWidth +28
+    x = e.pageX -34 - thumbnail.offsetWidth
     y = e.pageY - menu.offsetHeight -1
 
     //place text at position of mouse
