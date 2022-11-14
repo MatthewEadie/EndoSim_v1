@@ -43,7 +43,9 @@ body {
     color: #fff;
 }
 
-.active, .menubar ul li:hover{
+/* , .menubar ul li:hover */
+
+.active{
     background: #2649CA;
     border-radius: 3px;
 }
