@@ -749,4 +749,4 @@ function toggleMagnify(){
 
 // Ready, set, go
 draw()
-openTab(event, 'magnify_settings')
+// openTab(event, 'magnify_settings')
