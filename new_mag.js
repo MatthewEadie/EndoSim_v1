@@ -46,7 +46,7 @@ image.onload = function(){
 
     // canvas.drawImage(image,0,0)
 }
-image.src = dataset_location + 'image' + image_number + '_HR.png';
+image.src = dataset_location + 'Image' + image_number + '_HR.png';
 
 var greyImg = new Image(this.naturalWidth, this.naturalWidth)
 greyImg.src = './media/Grey.png';
@@ -56,7 +56,7 @@ var compImage = new Image(this.naturalWidth, this.naturalWidth)
 compImage.onload = function(){
     // zoomCanvas.drawImage(compImage,0,0)
 }
-compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
 
 
 var fibreImage = new Image()
@@ -76,7 +76,7 @@ var preblur = false
 
 function load_Fibre_image(){
     try {
-        compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+        compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
         fibre = true;
         preblur = true
         gaussian = false;
@@ -89,7 +89,7 @@ function load_Fibre_image(){
 
 function load_Linear_image(){
     try {
-        compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
+        compImage.src = dataset_location + 'Image' + image_number + '_Interp.png';
         fibre = false;
         preblur = false;
         gaussian = false;
@@ -101,7 +101,7 @@ function load_Linear_image(){
 
 function load_Gaussian_image(){
     try {
-        compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+        compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
         fibre = true;
         preblur = true;
         gaussian = true;
@@ -113,7 +113,7 @@ function load_Gaussian_image(){
 
 function load_SR_image(){
     try {
-        compImage.src = dataset_location + 'image' + image_number + '_SR.png';
+        compImage.src = dataset_location + 'Image' + image_number + '_SR.png';
         fibre = false;
         preblur = false;
         gaussian = false;
@@ -126,13 +126,13 @@ function load_SR_image(){
 
 function changeImage(imgNo){
     image_number = imgNo
-    image.src = dataset_location + 'image' + image_number + '_HR.png';
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+    image.src = dataset_location + 'Image' + image_number + '_HR.png';
+    compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
 
-    var interp = dataset_location + 'image' + image_number + '_Interp.png';
+    var interp = dataset_location + 'Image' + image_number + '_Interp.png';
 
     try {
-        var ML = dataset_location + 'image' + image_number + '_SR.png';
+        var ML = dataset_location + 'Image' + image_number + '_SR.png';
         checkIfImageExists(ML, (exists) => {
             if (exists) {
               // Success code
