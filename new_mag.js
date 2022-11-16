@@ -102,11 +102,16 @@ function load_Gaussian_image(){
 }
 
 function load_SR_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_SR.png';
-    fibre = false;
-    preblur = false;
-    gaussian = false;
-    draw()
+    try {
+        compImage.src = dataset_location + 'image' + image_number + '_SR.png';
+        fibre = false;
+        preblur = false;
+        gaussian = false;
+        draw()
+    } catch (error) {
+        console.log('Error occured loading SR image')
+    }
+    
 }
 
 function changeImage(imgNo){
@@ -115,7 +120,22 @@ function changeImage(imgNo){
     compImage.src = dataset_location + 'image' + image_number + '_HR.png';
 
     var interp = dataset_location + 'image' + image_number + '_Interp.png';
-    var ML = dataset_location + 'image' + image_number + '_SR.png';
+
+    try {
+        var ML = dataset_location + 'image' + image_number + '_SR.png';
+        checkIfImageExists(ML, (exists) => {
+            if (exists) {
+              // Success code
+              ML_radioBtn.disabled = false
+            } else {
+              // Fail code
+              ML_radioBtn.disabled = true
+            }
+          });  
+    } catch (error) {
+        console.log('ML not avaliable')
+    }
+    
 
     //https://codepen.io/kallil-belmonte/pen/KKKRoyx
     checkIfImageExists(interp, (exists) => {
@@ -128,15 +148,7 @@ function changeImage(imgNo){
         }
       });
 
-    checkIfImageExists(ML, (exists) => {
-        if (exists) {
-          // Success code
-          ML_radioBtn.disabled = false
-        } else {
-          // Fail code
-          ML_radioBtn.disabled = true
-        }
-      });  
+    
       
 
 }
