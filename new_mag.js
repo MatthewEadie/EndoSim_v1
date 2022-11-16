@@ -75,30 +75,40 @@ let zoomOutput = document.getElementById("zoomSizeValue");
 var preblur = false
 
 function load_Fibre_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
-    fibre = true;
-    preblur = true
-    gaussian = false;
+    try {
+        compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+        fibre = true;
+        preblur = true
+        gaussian = false;
 
-    draw()
+        draw()
+    } catch (error) {
+        console.log('Error occured loading fibre image')
+    }
 }
 
 function load_Linear_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
-    fibre = false;
-    preblur = false;
-    gaussian = false;
-
-    
-    // draw()
+    try {
+        compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
+        fibre = false;
+        preblur = false;
+        gaussian = false;
+        draw()
+    } catch (error) {
+        console.log('Error occured loading L.Interp image')
+    }
 }
 
 function load_Gaussian_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
-    fibre = true;
-    preblur = true;
-    gaussian = true;
-    draw()
+    try {
+        compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+        fibre = true;
+        preblur = true;
+        gaussian = true;
+        draw()
+    } catch (error) {
+        console.log('Error occured loading Gaussian image')
+    }
 }
 
 function load_SR_image(){
@@ -255,17 +265,20 @@ function draw()
     // ctx.scale(cameraZoom, cameraZoom)
     // ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y )
     // ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
-
-    if(showTissue){
-        //Draw background
-        ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
-    } else {
-        //Hide background
-        ctx.drawImage(greyImg,0,0)
-    }
-    
-    if (v_pause) {
-        requestAnimationFrame( draw )
+    try {
+        if(showTissue){
+            //Draw background
+            ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
+        } else {
+            //Hide background
+            ctx.drawImage(greyImg,0,0)
+        }
+        
+        if (v_pause) {
+            requestAnimationFrame( draw )
+        }
+    } catch (error) {
+        console.log('Error drawing image')
     }
 }
 
@@ -761,4 +774,4 @@ function toggleMagnify(){
 
 // Ready, set, go
 draw()
-// openTab(event, 'magnify_settings')
+openTab(event, 'magnify_settings')
