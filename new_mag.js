@@ -131,21 +131,17 @@ function changeImage(imgNo){
 
     var interp = dataset_location + 'Image' + image_number + '_Interp.png';
 
-    try {
-        var ML = dataset_location + 'Image' + image_number + '_SR.png';
-        checkIfImageExists(ML, (exists) => {
-            if (exists) {
-              // Success code
-              ML_radioBtn.disabled = false
-            } else {
-              // Fail code
-              ML_radioBtn.disabled = true
-            }
-          });  
-    } catch (error) {
-        console.log('ML not avaliable')
-    }
-    
+    var ML = dataset_location + 'Image' + image_number + '_SR.png';
+    checkIfImageExists(ML, (exists) => {
+        if (exists) {
+            // Success code
+            ML_radioBtn.disabled = false
+        } else {
+            // Fail code
+            ML_radioBtn.disabled = true
+        }
+        });  
+
 
     //https://codepen.io/kallil-belmonte/pen/KKKRoyx
     checkIfImageExists(interp, (exists) => {
@@ -265,20 +261,16 @@ function draw()
     // ctx.scale(cameraZoom, cameraZoom)
     // ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y )
     // ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
-    try {
-        if(showTissue){
-            //Draw background
-            ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
-        } else {
-            //Hide background
-            ctx.drawImage(greyImg,0,0)
-        }
-        
-        if (v_pause) {
-            requestAnimationFrame( draw )
-        }
-    } catch (error) {
-        console.log('Error drawing image')
+    if(showTissue){
+        //Draw background
+        ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
+    } else {
+        //Hide background
+        ctx.drawImage(greyImg,0,0)
+    }
+    
+    if (v_pause) {
+        requestAnimationFrame( draw )
     }
 }
 
