@@ -46,7 +46,7 @@ image.onload = function(){
 
     // canvas.drawImage(image,0,0)
 }
-image.src = dataset_location + 'image' + image_number + '_HR.png';
+image.src = dataset_location + 'Image' + image_number + '_HR.png';
 
 var greyImg = new Image(this.naturalWidth, this.naturalWidth)
 greyImg.src = './media/Grey.png';
@@ -56,7 +56,7 @@ var compImage = new Image(this.naturalWidth, this.naturalWidth)
 compImage.onload = function(){
     // zoomCanvas.drawImage(compImage,0,0)
 }
-compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
 
 
 var fibreImage = new Image()
@@ -75,59 +75,85 @@ let zoomOutput = document.getElementById("zoomSizeValue");
 var preblur = false
 
 function load_Fibre_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+    try {
+        compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
+    
+        changeFilter_Internal(100,100)
 
-    changeFilter_Internal(100,100)
+        fibre = true;
+        preblur = true
+        gaussian = false;
 
-    fibre = true;
-    preblur = true
-    gaussian = false;
-
-    draw()
-}
-
-function load_Gaussian_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
-
-    changeFilter_Internal(105,200) //values determined by eye
-
-    fibre = true;
-    preblur = true;
-    gaussian = true;
-    draw()
+        draw()
+    } catch (error) {
+        console.log('Error occured loading fibre image')
+    }
 }
 
 function load_Linear_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_Interp.png';
-
-    changeFilter_Internal(120,90) //values determined by eye
-
-    fibre = false;
-    preblur = false;
-    gaussian = false;
-
+    try {
+        compImage.src = dataset_location + 'Image' + image_number + '_Interp.png';
     
-    // draw()
+        changeFilter_Internal(120,90) //values determined by eye
+
+        fibre = false;
+        preblur = false;
+        gaussian = false;
+        draw()
+    } catch (error) {
+        console.log('Error occured loading L.Interp image')
+    }
+}
+
+function load_Gaussian_image(){
+    try {
+        compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
+
+        changeFilter_Internal(105,200) //values determined by eye
+
+        fibre = true;
+        preblur = true;
+        gaussian = true;
+        draw()
+    } catch (error) {
+        console.log('Error occured loading Gaussian image')
+    }
 }
 
 function load_SR_image(){
-    compImage.src = dataset_location + 'image' + image_number + '_SR.png';
+    try {
+        compImage.src = dataset_location + 'Image' + image_number + '_SR.png';
+    
+        changeFilter_Internal(100,100)
 
-    changeFilter_Internal(100,100)
-
-    fibre = false;
-    preblur = false;
-    gaussian = false;
-    draw()
+        fibre = false;
+        preblur = false;
+        gaussian = false;
+        draw()
+    } catch (error) {
+        console.log('Error occured loading SR image')
+    }
+    
 }
 
 function changeImage(imgNo){
     image_number = imgNo
-    image.src = dataset_location + 'image' + image_number + '_HR.png';
-    compImage.src = dataset_location + 'image' + image_number + '_HR.png';
+    image.src = dataset_location + 'Image' + image_number + '_HR.png';
+    compImage.src = dataset_location + 'Image' + image_number + '_HR.png';
 
-    var interp = dataset_location + 'image' + image_number + '_Interp.png';
-    var ML = dataset_location + 'image' + image_number + '_SR.png';
+    var interp = dataset_location + 'Image' + image_number + '_Interp.png';
+
+    var ML = dataset_location + 'Image' + image_number + '_SR.png';
+    checkIfImageExists(ML, (exists) => {
+        if (exists) {
+            // Success code
+            ML_radioBtn.disabled = false
+        } else {
+            // Fail code
+            ML_radioBtn.disabled = true
+        }
+        });  
+
 
     //https://codepen.io/kallil-belmonte/pen/KKKRoyx
     checkIfImageExists(interp, (exists) => {
@@ -140,15 +166,7 @@ function changeImage(imgNo){
         }
       });
 
-    checkIfImageExists(ML, (exists) => {
-        if (exists) {
-          // Success code
-          ML_radioBtn.disabled = false
-        } else {
-          // Fail code
-          ML_radioBtn.disabled = true
-        }
-      });  
+    
       
 
 }
@@ -270,7 +288,6 @@ function draw()
     // ctx.scale(cameraZoom, cameraZoom)
     // ctx.translate( -window.innerWidth / 2 + cameraOffset.x, -window.innerHeight / 2 + cameraOffset.y )
     // ctx.clearRect(0,0, window.innerWidth, window.innerHeight)
-
     if(showTissue){
         //Draw background
         ctx.drawImage(image,0,0)//,canvas.width,canvas.height)
