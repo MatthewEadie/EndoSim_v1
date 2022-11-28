@@ -26,7 +26,7 @@ var annotation_count = 1
 let v_pause = true
 let fibre = false;
 let gaussian = false;
-var gaussianAmount = 0
+var gaussianAmount = 5 //default value of 5
 var showTissue = true
 
 // let cameraOffset = { x: 200, y: 125 }
@@ -63,14 +63,6 @@ var fibreImage = new Image()
 fibreImage.src = "./images/fibres/Mask256.png";
 
 let fibre_size = document.getElementById("fibre_size");
-let zoomOutput = document.getElementById("zoomSizeValue");
-
-// zoomOutput.innerHTML = zoomSlider.value;
-// zoomSlider.oninput = function() {
-//     zoomOutput.innerHTML = this.value;
-//     zoomCanvas.width=this.value
-//     zoomCanvas.height=this.value
-// }
 
 var preblur = false
 
