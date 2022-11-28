@@ -227,21 +227,22 @@
 
                 <hr>
 
-                <p>Fibre shape</p>
-                <div class="row">
-                    <btn onclick="comparisonSquare()" class="annotation-shape fa fa-square-o"></btn>
-                    <btn onclick="comparisonCircle()" class="annotation-shape fa fa-circle-o"></btn>
-                </div>
-
-                <br>
-                <hr>
-                <br>
-
                 <div class="slider_container">
                     <ul>
                         <li>
+                            <p>Fibre shape</p>
+                            <div class="row">
+                                <btn onclick="comparisonSquare()" class="annotation-shape fa fa-square-o"></btn>
+                                <btn onclick="comparisonCircle()" class="annotation-shape fa fa-circle-o"></btn>
+                            </div>
+                        </li>
+
+                        <br>
+                        <br>
+
+                        <li>
                             <div class="col-3">
-                                <label for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></label>
+                                <p for="zoomSize">Fibre size: <span id="zoomSizeValue"></span></p>
                                 <select name="fibre_size" id="fibre_size" value="256px" onchange="fibreSize_changed()">
                                     <option value="100">100px</option>
                                     <option value="200">200px</option>
@@ -254,9 +255,12 @@
                                 </select>
                             </div>
                         </li>
-        
+
+                        <br>
+                        <br>
+                        
+                        <p for="gaussianAmount">Smoothing level: <span id="gaussianValue">0</span>px</p>
                         <li><input id="gaussianAmount" type="range" min="0" max="10" value="5" class="slider" oninput="gaussianAmount_changed()"></li>
-                        <label for="gaussianAmount">Smoothing level: <span id="gaussianValue">0</span>px</label>
                     </ul>
                 </div>
 
